@@ -17,7 +17,7 @@
             $('#container').highcharts({
 
                 chart: {
-                    polar: true,
+                    polar: true
                 },
 
                 legend: {
@@ -57,16 +57,24 @@
                     series: {
                         pointStart: 0,
                         pointInterval: 45,
-                        stacking: 'normal'
+                        stacking: 'normal',
+                        point: {
+                            events: {
+                                click: function() {
+                                    console.log('Category: '+this.x+' Difficulty: '+this.series.name);
+                                }
+                            }
+                        },
                     },
                     column: {
                         pointPadding: 0,
-                        groupPadding: 0
+                        groupPadding: 0,
                     }
                 },
                 series: [{
                     type: 'column',
-                    name: 'Final Round!',
+                    name: 'Hard',
+                    allowPointSelect: true,
                     data: [{
                         y: 1,
                         color: reds[2]
@@ -94,8 +102,9 @@
                     }, ],
                     pointPlacement: 'between'
                 }, {
+                    round: 1,
                     type: 'column',
-                    name: 'Round 2',
+                    name: 'Medium',
                     data: [{
                         y: 1,
                         color: reds[1]
@@ -123,8 +132,9 @@
                     }, ],
                     pointPlacement: 'between'
                 }, {
+                    round: 0,
                     type: 'column',
-                    name: 'Round 1',
+                    name: 'Easy',
                     data: [{
                         y: 1,
                         color: reds[0]
