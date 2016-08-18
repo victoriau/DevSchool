@@ -59,16 +59,21 @@
       <!-- endbower -->
     <!-- endbuild -->
 
-        
+
         <!-- build:js({.tmp,client}) app/app.js -->
-        
+
         <script src="app/app.js"></script>
           <!-- injector:js -->
+          <script src="app/directives/questionWheelDirective/questionWheelDirective.js"></script>
           <script src="app/directives/scoreDirective/scoreDirective.js"></script>
           <script src="app/factories/pokeFactory.js"></script>
           <script src="app/main/main.controller.js"></script>
           <script src="app/main/main.js"></script>
           <script src="components/navbar/navbar.controller.js"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+          <script src="http://code.highcharts.com/highcharts.js"></script>
+          <script src="http://code.highcharts.com/highcharts-more.js"></script>
+          <script src="colors.js"></script>
           <!-- endinjector -->
         <!-- endbuild -->
 </body>
