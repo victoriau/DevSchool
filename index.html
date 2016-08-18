@@ -4,6 +4,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
         <script src="http://code.highcharts.com/highcharts.js"></script>
         <script src="http://code.highcharts.com/highcharts-more.js"></script>
+        <script src="colors.js"></script>
     </head>
     <body>
         <div id="container" style="width: 600px; height: 400px; margin: 0 auto"></div>
@@ -11,138 +12,99 @@
         <script>
             $(function () {
 
-                window.chart = new Highcharts.Chart({
+               $('#container').highcharts({
 
-                    chart: {
-                        renderTo: 'container',
-                        polar: true
-                    },
+                   chart: {
+                       polar: true
+                   },
 
-                    title: {
-                        text: 'Highcharts Polar Chart'
-                    },
+                   title: {
+                       text: 'Highcharts Polar Chart'
+                   },
 
-                    pane: {
-                        startAngle: 0,
-                        endAngle: 360
-                    },
+                   pane: {
+                       startAngle: 0,
+                       endAngle: 360
+                   },
 
-                    xAxis: {
-                        tickInterval: 45,
-                        min: 0,
-                        max: 360,
-                        labels: {
-                            formatter: function () {
-                                return this.value;
-                            }
-                        }
-                    },
+                   xAxis: {
+                       tickInterval: 45,
+                       min: 0,
+                       max: 360,
+                       labels: {
+                           formatter: function () {
+                               return "";
+                           }
+                       }
+                   },
 
-                    yAxis: {
-                        min: 0
-                    },
+                   yAxis: {
+                       min: 0,
+                       labels: {
+                           formatter: function () {
+                               return "";
+                           }
+                       }
+                   },
 
-                    plotOptions: {
-                        series: {
-                            pointStart: 0,
-                            pointInterval: 45,
-                            stacking: 'normal'
-                        },
-                        column: {
-                            pointPadding: 0,
-                            groupPadding: 0
-                        }
-                    },
-
-                    series: [{
-                        type: 'column',
-                        name: 'Column 1',
-                        data: [ {
-                            y: 1,
-                            color: 'red'
-                        }, {
-                            y: 1,
-                            color: 'blue'
-                        },  {
-                            y: 1,
-                            color: 'green'
-                        }, {
-                            y: 1,
-                            color: 'red'
-                        }, {
-                            y: 1,
-                            color: 'blue'
-                        }, {
-                            y: 1,
-                            color: 'green'
-                        }, {
-                            y: 1,
-                            color: 'red'
-                        }, {
-                            y: 1,
-                            color: 'blue'
-                        }],
-                        pointPlacement: 'between'
-                    },{
-                        type: 'column',
-                        name: 'Column 2',
-                        data: [ {
-                            y: 1,
-                            color: 'red'
-                        }, {
-                            y: 1,
-                            color: 'blue'
-                        },  {
-                            y: 1,
-                            color: 'green'
-                        }, {
-                            y: 1,
-                            color: 'red'
-                        }, {
-                            y: 1,
-                            color: 'blue'
-                        }, {
-                            y: 1,
-                            color: 'green'
-                        }, {
-                            y: 1,
-                            color: 'red'
-                        }, {
-                            y: 1,
-                            color: 'blue'
-                        }],
-                        pointPlacement: 'between'
-                    },{
-                        type: 'column',
-                        name: 'Column 3',
-                        data: [ {
-                            y: 1,
-                            color: 'red'
-                        }, {
-                            y: 1,
-                            color: 'blue'
-                        },  {
-                            y: 1,
-                            color: 'green'
-                        }, {
-                            y: 1,
-                            color: 'red'
-                        }, {
-                            y: 1,
-                            color: 'blue'
-                        }, {
-                            y: 1,
-                            color: 'green'
-                        }, {
-                            y: 1,
-                            color: 'red'
-                        }, {
-                            y: 1,
-                            color: 'blue'
-                        }],
-                        pointPlacement: 'between'
-                    }]
-                });
+                   plotOptions: {
+                       series: {
+                           pointStart: 0,
+                           pointInterval: 45,
+                           stacking: 'normal'
+                       },
+                       column: {
+                           pointPadding: 0,
+                           groupPadding: 0
+                       }
+                   },
+                   series: [{
+                       type: 'column',
+                       name: '3rd level questions',
+                       color: '#0',
+                       data: [
+                         {y: 1, color: reds[2]},
+                         {y: 1, color: browns[2]},
+                         {y: 1, color: yellows[2]},
+                         {y: 1, color: purples[2]},
+                         {y: 1, color: blues[2]},
+                         {y: 1, color: teals[2]},
+                         {y: 1, color: greens[2]},
+                         {y: 1, color: grays[2]},
+                       ],
+                       pointPlacement: 'between'
+                   },{
+                       type: 'column',
+                       name: '2nd level questions',
+                       color: '#0',
+                       data: [
+                         {y: 1, color: reds[1]},
+                         {y: 1, color: browns[1]},
+                         {y: 1, color: yellows[1]},
+                         {y: 1, color: purples[1]},
+                         {y: 1, color: blues[1]},
+                         {y: 1, color: teals[1]},
+                         {y: 1, color: greens[1]},
+                         {y: 1, color: grays[1]},
+                       ],
+                       pointPlacement: 'between'
+                   },{
+                       type: 'column',
+                       name: '1st level questions',
+                       color: '#FFAAAA ',
+                       data: [
+                           {y: 1, color: reds[0]},
+                         {y: 1, color: browns[0]},
+                         {y: 1, color: yellows[0]},
+                         {y: 1, color: purples[0]},
+                         {y: 1, color: blues[0]},
+                         {y: 1, color: teals[0]},
+                         {y: 1, color: greens[0]},
+                         {y: 1, color: grays[0]},
+                       ],
+                       pointPlacement: 'between'
+                   }]
+               });
             });
         </script>
         
