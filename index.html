@@ -3,63 +3,147 @@
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
         <script src="http://code.highcharts.com/highcharts.js"></script>
+        <script src="http://code.highcharts.com/highcharts-more.js"></script>
     </head>
     <body>
-        <div id="container" style="position: absolute; margin-left: auto; margin-right: auto; left: 0; right: 0;"></div>
+        <div id="container" style="width: 600px; height: 400px; margin: 0 auto"></div>
+
         <script>
-        $(function () {
-            $('#container').highcharts({
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    type: 'pie'
-                },
-                title: {
-                    text: 'Become a PokeMaster'
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: {
-                            enabled: true,
-                            format: '<b>{point.name}</b>',
-                            style: {
-                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+            $(function () {
+
+                window.chart = new Highcharts.Chart({
+
+                    chart: {
+                        renderTo: 'container',
+                        polar: true
+                    },
+
+                    title: {
+                        text: 'Highcharts Polar Chart'
+                    },
+
+                    pane: {
+                        startAngle: 0,
+                        endAngle: 360
+                    },
+
+                    xAxis: {
+                        tickInterval: 45,
+                        min: 0,
+                        max: 360,
+                        labels: {
+                            formatter: function () {
+                                return this.value;
                             }
                         }
-                    }
-                },
-                
-                series: [{
-                    name: 'Brands',
-                    colorByPoint: true,
-                    data: [{
-                        name: 'Pokemon',
-                        y: 1
-                    }, {
-                        name: 'Items',
-                        y: 1
-                    }, {
-                        name: 'Moves',
-                        y: 1
-                    }, {
-                        name: 'TMs/HMs',
-                        y: 1
-                    }, {
-                        name: 'Cool',
-                        y: 1
-                    }, {
-                        name: 'Gyms',
-                        y: 1
+                    },
+
+                    yAxis: {
+                        min: 0
+                    },
+
+                    plotOptions: {
+                        series: {
+                            pointStart: 0,
+                            pointInterval: 45,
+                            stacking: 'normal'
+                        },
+                        column: {
+                            pointPadding: 0,
+                            groupPadding: 0
+                        }
+                    },
+
+                    series: [{
+                        type: 'column',
+                        name: 'Column 1',
+                        data: [ {
+                            y: 1,
+                            color: 'red'
+                        }, {
+                            y: 1,
+                            color: 'blue'
+                        },  {
+                            y: 1,
+                            color: 'green'
+                        }, {
+                            y: 1,
+                            color: 'red'
+                        }, {
+                            y: 1,
+                            color: 'blue'
+                        }, {
+                            y: 1,
+                            color: 'green'
+                        }, {
+                            y: 1,
+                            color: 'red'
+                        }, {
+                            y: 1,
+                            color: 'blue'
+                        }],
+                        pointPlacement: 'between'
+                    },{
+                        type: 'column',
+                        name: 'Column 2',
+                        data: [ {
+                            y: 1,
+                            color: 'red'
+                        }, {
+                            y: 1,
+                            color: 'blue'
+                        },  {
+                            y: 1,
+                            color: 'green'
+                        }, {
+                            y: 1,
+                            color: 'red'
+                        }, {
+                            y: 1,
+                            color: 'blue'
+                        }, {
+                            y: 1,
+                            color: 'green'
+                        }, {
+                            y: 1,
+                            color: 'red'
+                        }, {
+                            y: 1,
+                            color: 'blue'
+                        }],
+                        pointPlacement: 'between'
+                    },{
+                        type: 'column',
+                        name: 'Column 3',
+                        data: [ {
+                            y: 1,
+                            color: 'red'
+                        }, {
+                            y: 1,
+                            color: 'blue'
+                        },  {
+                            y: 1,
+                            color: 'green'
+                        }, {
+                            y: 1,
+                            color: 'red'
+                        }, {
+                            y: 1,
+                            color: 'blue'
+                        }, {
+                            y: 1,
+                            color: 'green'
+                        }, {
+                            y: 1,
+                            color: 'red'
+                        }, {
+                            y: 1,
+                            color: 'blue'
+                        }],
+                        pointPlacement: 'between'
                     }]
-                }]
+                });
             });
-        });
         </script>
         
     </body>
