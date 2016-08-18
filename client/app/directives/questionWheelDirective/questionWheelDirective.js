@@ -10,6 +10,10 @@ angular.module('pokExamApp')
         console.log("Connecting to the question wheel directive");
         $('#container').highcharts({
 
+          credits: {
+            enabled: false
+          },
+
           chart: {
             polar: true
           },
@@ -19,7 +23,10 @@ angular.module('pokExamApp')
           },
 
           title: {
-            text: 'Pok\xE9Trivia'
+            text: 'Pok\xE9Trivia',
+            style: {
+              display: 'none'
+            }
           },
 
           pane: {
