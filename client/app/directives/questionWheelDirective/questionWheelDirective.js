@@ -88,6 +88,8 @@ angular.module('pokExamApp')
                   click: function() {
                     $scope.category = this.x;
                     $scope.difficulty = this.series.name;
+                    $scope.clickedPiece = this;
+                    $scope.index = this.index;
                     console.log('Category: ' + this.x + ' Difficulty: ' + this.series.name);
                     var modalInstance = $uibModal.open({
                       animation: true,
@@ -97,11 +99,36 @@ angular.module('pokExamApp')
                       scope: $scope,
                       resolve: {}
                     });
+                      
+                    var disablePiece = function(color) {
+                        var piece = $scope.clickedPiece.series.data[$scope.index];
+                        console.log(piece);
+                        piece.color = color;
+                        piece.events.click = function() {
+                            console.log("Test");
+                            return false;
+                        };
+                        $scope.clickedPiece.series.setData($scope.clickedPiece.series.data,true); //SET DATA TO ITSELF TO RERENDER
+                    }
 
                     modalInstance.result.then(function (correct) {
                         console.log("User answered correctly? " + correct);
                         if (!correct) {
-                            //decrement lives
+                            //send message to lives directive to decrement lives
+                        } else {
+                            switch ($scope.category, $scope.difficulty) {
+                                case 180, "Easy":
+                                    disablePiece(answered[2]);
+                                    break;
+                                case 180, "Medium":
+                                    disablePiece(answered[1]);
+                                    break;
+                                case 180, "Hard":
+                                    disablePiece(answered[1]);
+                                    break;
+                                default:
+                                    console.log($scope.category, $scope.difficulty);
+                            }
                         }
                     }, function () {
                       console.log("Modal dismissed");
