@@ -7,7 +7,7 @@ angular.module('pokExamApp')
       templateUrl: 'app/directives/questionWheelDirective/questionWheelDirective.html',
       scope: {},
 
-      controller: ['$scope', '$uibModal', 'PokeFactory', function($scope, $uibModal, PokeFactory) {
+      controller: ['$scope', '$uibModal', 'PokeFactory', 'MusicFactory', function($scope, $uibModal, PokeFactory, MusicFactory) {
         PokeFactory.callPoke('allPokemon').then(function(results){
           $scope.allPokemon = results.results;
           console.log($scope.allPokemon);
@@ -35,6 +35,8 @@ angular.module('pokExamApp')
                       return 'Unown Category';
               }
           }
+
+        MusicFactory.playMainMusic();
 
         console.log("Connecting to the question wheel directive");
         $('#container').highcharts({
@@ -92,8 +94,11 @@ angular.module('pokExamApp')
               point: {
                 events: {
                   click: function() {
+                    MusicFactory.playBattleMusic();
                     $scope.category = this.x;
                     $scope.difficulty = this.series.name;
+                    $scope.clickedPiece = this;
+                    $scope.index = this.index;
                     console.log('Category: ' + this.x + ' Difficulty: ' + this.series.name);
                     var modalInstance = $uibModal.open({
                       animation: true,
@@ -104,7 +109,35 @@ angular.module('pokExamApp')
                       resolve: {}
                     });
 
-                    modalInstance.result.then(function (plan) {
+                    var disablePiece = function(color) {
+                        var piece = $scope.clickedPiece.series.data[$scope.index];
+                        console.log(piece);
+                        piece.color = color;
+                        piece.events.click = function() {
+                            console.log("Test");
+                            return false;
+                        };
+                        $scope.clickedPiece.series.setData($scope.clickedPiece.series.data,true); //SET DATA TO ITSELF TO RERENDER
+                    }
+                    modalInstance.result.then(function (correct) {
+                        console.log("User answered correctly? " + correct);
+                        if (!correct) {
+                            //send message to lives directive to decrement lives
+                        } else {
+                            switch ($scope.category, $scope.difficulty) {
+                                case 180, "Easy":
+                                    disablePiece(answered[2]);
+                                    break;
+                                case 180, "Medium":
+                                    disablePiece(answered[1]);
+                                    break;
+                                case 180, "Hard":
+                                    disablePiece(answered[1]);
+                                    break;
+                                default:
+                                    console.log($scope.category, $scope.difficulty);
+                            }
+                        }
                     }, function () {
                       console.log("Modal dismissed");
                     });

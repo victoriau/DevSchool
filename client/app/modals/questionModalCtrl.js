@@ -5,10 +5,11 @@ angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope',
 
     $scope.user = "Victoria";
     $scope.answer;
+    $scope.correctAnswer;
 
     $scope.ok = function (answer) {
-      console.log(answer);
-      $uibModalInstance.close();
+      console.log("Selected: " + answer + "; Correct = " + $scope.correctAnswer);;
+      $uibModalInstance.close(answer === $scope.correctAnswer);
     };
 
     $scope.cancel = function () {
@@ -24,6 +25,9 @@ angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope',
       var tempAnswers = [];
       PokeFactory.callPoke('getRandomPoke').then(function(results){
         tempAnswers.push(results.name);
+
+        $scope.correctAnswer = results.name;
+
         $scope.sprite = results.sprites.front_default;
 
         var num = Math.floor(Math.random() *811);
