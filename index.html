@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="http://code.highcharts.com/highcharts.js"></script>
+    </head>
+    <body>
+        <div id="container" style="position: absolute; margin-left: auto; margin-right: auto; left: 0; right: 0;"></div>
+        <script>
+        $(function () {
+            $('#container').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Become a PokeMaster'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        }
+                    }
+                },
+                
+                series: [{
+                    name: 'Brands',
+                    colorByPoint: true,
+                    data: [{
+                        name: 'Pokemon',
+                        y: 1
+                    }, {
+                        name: 'Items',
+                        y: 1
+                    }, {
+                        name: 'Moves',
+                        y: 1
+                    }, {
+                        name: 'TMs/HMs',
+                        y: 1
+                    }, {
+                        name: 'Cool',
+                        y: 1
+                    }, {
+                        name: 'Gyms',
+                        y: 1
+                    }]
+                }]
+            });
+        });
+        </script>
+        
+    </body>
+</html>
