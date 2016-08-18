@@ -1,12 +1,19 @@
 'use strict';
 
 //MAUI API factory used for managing API calls
-angular.module('pokExamApp').factory('MusicFactory', function($http, $q){
-    var service = {};
+angular.module('pokExamApp').factory('MusicFactory', function($http, $q) {
+  var service = {};
 
-    service.playMainMusic = function(intent){
-        var audio = new Audio('../../assets/music/palette_town_theme.mp3').play();
-    };
+  var mainMusic = document.getElementById("mainMusic");
+  var battleMusic = document.getElementById("battleMusic");
 
-    return service;
+  service.playMainMusic = function(intent) {
+    battleMusic.pause();
+    mainMusic.play();
+  };
+  service.playBattleMusic = function(intent) {
+    mainMusic.pause();
+    battleMusic.play();
+  };
+  return service;
 });

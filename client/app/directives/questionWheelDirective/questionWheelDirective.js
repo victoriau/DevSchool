@@ -31,6 +31,7 @@ angular.module('pokExamApp')
         }
 
         MusicFactory.playMainMusic();
+
         console.log("Connecting to the question wheel directive");
         $('#container').highcharts({
 
@@ -87,6 +88,7 @@ angular.module('pokExamApp')
               point: {
                 events: {
                   click: function() {
+                    MusicFactory.playBattleMusic();
                     $scope.category = this.x;
                     $scope.difficulty = this.series.name;
                     console.log('Category: ' + this.x + ' Difficulty: ' + this.series.name);
