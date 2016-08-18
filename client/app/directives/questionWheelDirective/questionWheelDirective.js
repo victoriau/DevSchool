@@ -6,30 +6,31 @@ angular.module('pokExamApp')
       restrict: 'EA',
       templateUrl: 'app/directives/questionWheelDirective/questionWheelDirective.html',
       scope: {},
-      controller: ['$scope', '$uibModal', function($scope, $uibModal) {
-          function getCategory(x) {
-              switch(x) {
-                  case 0:
-                      return 'Type Effectiveness';
-                  case 45:
-                      return 'Evolution';
-                  case 90:
-                      return 'Moves';
-                  case 135:
-                      return 'Pok\xE9mon Stats';
-                  case 180:
-                      return 'Who\'s That Pok\xE9mon?';
-                  case 225:
-                      return 'Items';
-                  case 270:
-                      return 'Badges';
-                  case 315:
-                      return 'Miscellaneous';
-                  default:
-                      return 'Unown Category';
-              }
+      controller: ['$scope', '$uibModal', 'MusicFactory', function($scope, $uibModal, MusicFactory) {
+        function getCategory(x) {
+          switch (x) {
+            case 0:
+              return 'Type Effectiveness';
+            case 45:
+              return 'Evolution';
+            case 90:
+              return 'Moves';
+            case 135:
+              return 'Pok\xE9mon Stats';
+            case 180:
+              return 'Who\'s That Pok\xE9mon?';
+            case 225:
+              return 'Items';
+            case 270:
+              return 'Badges';
+            case 315:
+              return 'Miscellaneous';
+            default:
+              return 'Unown Category';
           }
-                    
+        }
+
+        MusicFactory.playMainMusic();
         console.log("Connecting to the question wheel directive");
         $('#container').highcharts({
 
@@ -110,7 +111,6 @@ angular.module('pokExamApp')
                         };
                         $scope.clickedPiece.series.setData($scope.clickedPiece.series.data,true); //SET DATA TO ITSELF TO RERENDER
                     }
-
                     modalInstance.result.then(function (correct) {
                         console.log("User answered correctly? " + correct);
                         if (!correct) {
