@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('pokExamApp')
-  .controller('MainCtrl', function ($scope, $http, PokeFactory) {
+  .controller('MainCtrl', function ($scope, $http, $uibModal, PokeFactory) {
     $scope.awesomeThings = [];
 
     $http.get('/api/things').success(function(awesomeThings) {
@@ -17,5 +17,23 @@ angular.module('pokExamApp')
         console.log(abilityObj.ability.name);
       });
     });//End callPoke
+
+    $scope.askQuestion = function (size) {
+
+      var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: 'app/modals/questionModal.html',
+        controller: 'questionModalCtrl',
+        size: size,
+        scope: $scope,
+        resolve: {}
+      });
+
+      modalInstance.result.then(function (plan) {
+      }, function () {
+        console.log("Modal dismissed");
+      });
+
+    };
 
   });//End Module

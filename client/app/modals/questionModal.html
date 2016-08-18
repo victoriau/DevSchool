@@ -1,0 +1,45 @@
+<div class="modal-header">
+    <h3 class="modal-title">Question</h3>
+    <!--<button ng-click="seedDefaultPlan()">Seed Default Plan</button>-->
+</div>
+
+<form novalidate class="simple-form" name="form">
+    <div class="modal-body">
+        <ul>
+            <label for="name"> *Name of Plan: </label>
+            <input name="name" type="text" ng-model="plan.title" required="" /><br />
+            <!-- <div ng-show="form.$submitted || form.name.$touched">
+              <div ng-show="form.name.$error.required">Tell us your name.</div>
+            </div>
+
+            <label> Major: </label>
+            <select ng-model="plan.major" ng-change="majorSelected()">
+              <option ng-repeat="option in majors" value="{{option._id}}">{{option.name}}</option>
+            </select><br>
+
+            <label> Track: </label>
+            <select ng-disabled="!major" ng-model="plan.track" ng-change="trackSelected()">
+              <option ng-repeat="option in tracks" value="{{option._id}}">{{option.name}}</option>
+            </select>
+            <button ng-show="planAvailable()" uib-popover="{{selectedTrack.description}}" popover-title="{{selectedTrack.name}}" type="button" class="btn colored-btn"><span class="glyphicon glyphicon-info-sign"></span></button>
+            <br>
+
+            <div class="form-group">
+              <label for="session">*Session</label>
+              <select name="session" id="session" ng-model="session" required="">
+                <option ng-repeat="session in sessions | orderBy:'legacyCode'" ng-show="showSessionOption(session)" value="{{session}}">{{session.shortDescription}}</option>
+              </select>
+            </div>
+
+            <label for="default">* Start With Suggested 4 Year Plan: </label>
+            <span ng-hide="planAvailable()">not available for current selection</span>
+            <input ng-show="planAvailable()" type="checkbox" ng-model="plan.startWithDefault" name="default"/><br/>
+            
+           <label> * Indicates Required Field </label> -->
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <input class="btn colored-btn" type="submit" ng-click="ok()" ng-disabled="form.$invalid"></button>
+        <button class="btn exit-btn" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</form>
