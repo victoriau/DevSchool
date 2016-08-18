@@ -71,10 +71,14 @@
                         groupPadding: 0,
                     }
                 },
+                tooltip: {
+                    formatter: function() {
+                        return 'Category: <b>'+this.x+'</b><br/>Difficulty: <b>'+this.series.name+'</b>';
+                    }
+                },
                 series: [{
                     type: 'column',
                     name: 'Hard',
-                    allowPointSelect: true,
                     data: [{
                         y: 1,
                         color: reds[2]
