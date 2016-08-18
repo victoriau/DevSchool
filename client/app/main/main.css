@@ -1,38 +1,42 @@
 .thing-form {
-    margin: 20px 0;
+  margin: 20px 0;
 }
-
 #banner {
-    border-bottom: none;
-    margin-top: -20px;
+  border-bottom: none;
+  margin-top: -20px;
 }
-
+@font-face {
+  font-family: PokeFont;
+  src: 'assets/pokemon_hollow.ttf';
+}
 #banner h1 {
-    font-size: 48px;
-    line-height: 1;
-    letter-spacing: -1px;
+  font-size: 60px;
+  font-family: PokeFont;
+  color: #FFFFFF;
+  line-height: 1;
+  letter-spacing: -1px;
 }
-
 .hero-unit {
-    position: relative;
-    padding: 30px 15px;
-    color: #F5F5F5;
-    text-align: center;
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-    background: #4393B9;
+  position: relative;
+  padding: 30px 15px;
+  color: #F5F5F5;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+  background: #7799FF;
 }
-
 .footer {
-    text-align: center;
-    padding: 30px 0;
-    margin-top: 70px;
-    border-top: 1px solid #E5E5E5;
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 70px;
+  border-top: 1px solid #E5E5E5;
 }
-
 .navbar-text {
-    margin-left: 15px;
+  margin-left: 15px;
 }
-
-.pokeball{
-    width: 70%;
+.pokeball {
+  width: 70%;
+}
+@font-face {
+  font-family: PokeFont;
+  src: url('../../assets/pokemon_hollow.ttf');
 }
