@@ -6,7 +6,7 @@ angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope',
     $scope.user = "Victoria";
 
     $scope.ok = function () {
-
+      console.log($scope.plan.title);
       $uibModalInstance.close();
     };
 
