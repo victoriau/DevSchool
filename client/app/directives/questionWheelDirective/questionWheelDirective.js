@@ -6,7 +6,6 @@ angular.module('pokExamApp')
       restrict: 'EA',
       templateUrl: 'app/directives/questionWheelDirective/questionWheelDirective.html',
       scope: {},
-
       controller: ['$scope', '$uibModal', function($scope, $uibModal) {
           function getCategory(x) {
               switch(x) {
@@ -30,7 +29,7 @@ angular.module('pokExamApp')
                       return 'Unown Category';
               }
           }
-          
+                    
         console.log("Connecting to the question wheel directive");
         $('#container').highcharts({
 
@@ -99,7 +98,11 @@ angular.module('pokExamApp')
                       resolve: {}
                     });
 
-                    modalInstance.result.then(function (plan) {
+                    modalInstance.result.then(function (correct) {
+                        console.log("User answered correctly? " + correct);
+                        if (!correct) {
+                            //decrement lives
+                        }
                     }, function () {
                       console.log("Modal dismissed");
                     });
