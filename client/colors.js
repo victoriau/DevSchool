@@ -63,3 +63,6 @@ var answered = [
     '#EFEFEF',
     '#333333'
 ];
+
+var alive = answered;
+var dead = grays;
