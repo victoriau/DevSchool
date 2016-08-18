@@ -7,6 +7,30 @@ angular.module('pokExamApp')
       templateUrl: 'app/directives/questionWheelDirective/questionWheelDirective.html',
       scope: {},
       controller: ['$scope', function($scope) {
+          
+          function getCategory(x) {
+              switch(x) {
+                  case 0:
+                      return 'Type Effectiveness';
+                  case 45:
+                      return 'Evolution';
+                  case 90:
+                      return 'Moves';
+                  case 135:
+                      return 'Pok\xE9mon Stats';
+                  case 180:
+                      return 'Who\'s That Pok\xE9mon?';
+                  case 225:
+                      return 'Items';
+                  case 270:
+                      return 'Badges';
+                  case 315:
+                      return 'Miscellaneous';
+                  default:
+                      return 'Unown Category';
+              }
+          }
+          
         console.log("Connecting to the question wheel directive");
         $('#container').highcharts({
 
@@ -47,6 +71,7 @@ angular.module('pokExamApp')
 
           yAxis: {
             min: 0,
+            max: 3,
             labels: {
               formatter: function() {
                 return "";
@@ -66,6 +91,8 @@ angular.module('pokExamApp')
                   }
                 }
               },
+              borderWidth: 1,
+              borderColor: '#FFFFFF',
             },
             column: {
               pointPadding: 0,
@@ -74,7 +101,7 @@ angular.module('pokExamApp')
           },
           tooltip: {
             formatter: function() {
-              return 'Category: <b>' + this.x + '</b><br/>Difficulty: <b>' + this.series.name + '</b>';
+              return 'Category: <b>' + getCategory(this.x) + '</b><br/>Difficulty: <b>' + this.series.name + '</b>';
             }
           },
           series: [{
@@ -82,28 +109,28 @@ angular.module('pokExamApp')
             name: 'Hard',
             data: [{
               y: 1,
-              color: reds[2]
+              color: unanswered[0]
             }, {
               y: 1,
-              color: browns[2]
+              color: unanswered[0]
             }, {
               y: 1,
-              color: yellows[2]
+              color: unanswered[1]
             }, {
               y: 1,
-              color: purples[2]
+              color: unanswered[1]
             }, {
               y: 1,
-              color: blues[2]
+              color: unanswered[1]
             }, {
               y: 1,
-              color: teals[2]
+              color: unanswered[1]
             }, {
               y: 1,
-              color: greens[2]
+              color: unanswered[0]
             }, {
               y: 1,
-              color: grays[2]
+              color: unanswered[0]
             }, ],
             pointPlacement: 'between'
           }, {
@@ -112,28 +139,28 @@ angular.module('pokExamApp')
             name: 'Medium',
             data: [{
               y: 1,
-              color: reds[1]
+              color: unanswered[0]
             }, {
               y: 1,
-              color: browns[1]
+              color: unanswered[0]
             }, {
               y: 1,
-              color: yellows[1]
+              color: unanswered[1]
             }, {
               y: 1,
-              color: purples[1]
+              color: unanswered[1]
             }, {
               y: 1,
-              color: blues[1]
+              color: unanswered[1]
             }, {
               y: 1,
-              color: teals[1]
+              color: unanswered[1]
             }, {
               y: 1,
-              color: greens[1]
+              color: unanswered[0]
             }, {
               y: 1,
-              color: grays[1]
+              color: unanswered[0]
             }, ],
             pointPlacement: 'between'
           }, {
@@ -142,28 +169,28 @@ angular.module('pokExamApp')
             name: 'Easy',
             data: [{
               y: 1,
-              color: reds[0]
+              color: unanswered[2]
             }, {
               y: 1,
-              color: browns[0]
+              color: unanswered[2]
             }, {
               y: 1,
-              color: yellows[0]
+              color: unanswered[2]
             }, {
               y: 1,
-              color: purples[0]
+              color: unanswered[2]
             }, {
               y: 1,
-              color: blues[0]
+              color: unanswered[2]
             }, {
               y: 1,
-              color: teals[0]
+              color: unanswered[2]
             }, {
               y: 1,
-              color: greens[0]
+              color: unanswered[2]
             }, {
               y: 1,
-              color: grays[0]
+              color: unanswered[2]
             }, ],
             pointPlacement: 'between'
           }]
