@@ -91,6 +91,8 @@ angular.module('pokExamApp')
                   }
                 }
               },
+              borderWidth: 1,
+              borderColor: '#FFFFFF',
             },
             column: {
               pointPadding: 0,
@@ -107,28 +109,28 @@ angular.module('pokExamApp')
             name: 'Hard',
             data: [{
               y: 1,
-              color: reds[2]
+              color: unanswered[0]
             }, {
               y: 1,
-              color: browns[2]
+              color: unanswered[0]
             }, {
               y: 1,
-              color: yellows[2]
+              color: unanswered[1]
             }, {
               y: 1,
-              color: purples[2]
+              color: unanswered[1]
             }, {
               y: 1,
-              color: blues[2]
+              color: unanswered[1]
             }, {
               y: 1,
-              color: teals[2]
+              color: unanswered[1]
             }, {
               y: 1,
-              color: greens[2]
+              color: unanswered[0]
             }, {
               y: 1,
-              color: grays[2]
+              color: unanswered[0]
             }, ],
             pointPlacement: 'between'
           }, {
@@ -137,28 +139,28 @@ angular.module('pokExamApp')
             name: 'Medium',
             data: [{
               y: 1,
-              color: reds[1]
+              color: unanswered[0]
             }, {
               y: 1,
-              color: browns[1]
+              color: unanswered[0]
             }, {
               y: 1,
-              color: yellows[1]
+              color: unanswered[1]
             }, {
               y: 1,
-              color: purples[1]
+              color: unanswered[1]
             }, {
               y: 1,
-              color: blues[1]
+              color: unanswered[1]
             }, {
               y: 1,
-              color: teals[1]
+              color: unanswered[1]
             }, {
               y: 1,
-              color: greens[1]
+              color: unanswered[0]
             }, {
               y: 1,
-              color: grays[1]
+              color: unanswered[0]
             }, ],
             pointPlacement: 'between'
           }, {
@@ -167,28 +169,28 @@ angular.module('pokExamApp')
             name: 'Easy',
             data: [{
               y: 1,
-              color: reds[0]
+              color: unanswered[2]
             }, {
               y: 1,
-              color: browns[0]
+              color: unanswered[2]
             }, {
               y: 1,
-              color: yellows[0]
+              color: unanswered[2]
             }, {
               y: 1,
-              color: purples[0]
+              color: unanswered[2]
             }, {
               y: 1,
-              color: blues[0]
+              color: unanswered[2]
             }, {
               y: 1,
-              color: teals[0]
+              color: unanswered[2]
             }, {
               y: 1,
-              color: greens[0]
+              color: unanswered[2]
             }, {
               y: 1,
-              color: grays[0]
+              color: unanswered[2]
             }, ],
             pointPlacement: 'between'
           }]

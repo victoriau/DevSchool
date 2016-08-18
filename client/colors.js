@@ -51,3 +51,18 @@ var grays = [
     '#6F6F6F',
     '#393939'
 ];
+
+var unanswered = [
+    '#FFBFBF',
+    '#DDDDDD',
+    '#8F8F8F'
+];
+
+var answered = [
+    '#EB4A4A',
+    '#EFEFEF',
+    '#333333'
+];
+
+var alive = answered;
+var dead = grays;
