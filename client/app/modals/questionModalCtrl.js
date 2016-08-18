@@ -18,7 +18,7 @@ angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope',
     $scope.question = "";
     $scope.answers = [];
 
-    if($scope.category === 315){
+    if($scope.category === 180){
       $scope.question = "Which pokemon is this?";
       $scope.answers = [];
       PokeFactory.callPoke('getRandomPoke').then(function(results){
