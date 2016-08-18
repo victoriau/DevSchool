@@ -10,5 +10,4 @@ angular.module('pokExamApp')
 
     $scope.test = "Victoria";
 
-
   });//End Module

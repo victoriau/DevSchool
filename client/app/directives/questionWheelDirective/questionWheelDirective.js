@@ -7,7 +7,12 @@ angular.module('pokExamApp')
       templateUrl: 'app/directives/questionWheelDirective/questionWheelDirective.html',
       scope: {},
 
-      controller: ['$scope', '$uibModal', function($scope, $uibModal) {
+      controller: ['$scope', '$uibModal', 'PokeFactory', function($scope, $uibModal, PokeFactory) {
+        PokeFactory.callPoke('allPokemon').then(function(results){
+          $scope.allPokemon = results.results;
+          console.log($scope.allPokemon);
+        });
+
           function getCategory(x) {
               switch(x) {
                   case 0:
@@ -30,7 +35,7 @@ angular.module('pokExamApp')
                       return 'Unown Category';
               }
           }
-          
+
         console.log("Connecting to the question wheel directive");
         $('#container').highcharts({
 
