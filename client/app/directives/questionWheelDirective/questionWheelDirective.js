@@ -7,6 +7,30 @@ angular.module('pokExamApp')
       templateUrl: 'app/directives/questionWheelDirective/questionWheelDirective.html',
       scope: {},
       controller: ['$scope', function($scope) {
+          
+          function getCategory(x) {
+              switch(x) {
+                  case 0:
+                      return 'Type Effectiveness';
+                  case 45:
+                      return 'Evolution';
+                  case 90:
+                      return 'Moves';
+                  case 135:
+                      return 'Pok\xE9mon Stats';
+                  case 180:
+                      return 'Who\'s That Pok\xE9mon?';
+                  case 225:
+                      return 'Items';
+                  case 270:
+                      return 'Badges';
+                  case 315:
+                      return 'Miscellaneous';
+                  default:
+                      return 'Unown Category';
+              }
+          }
+          
         console.log("Connecting to the question wheel directive");
         $('#container').highcharts({
 
@@ -47,6 +71,7 @@ angular.module('pokExamApp')
 
           yAxis: {
             min: 0,
+            max: 3,
             labels: {
               formatter: function() {
                 return "";
@@ -74,7 +99,7 @@ angular.module('pokExamApp')
           },
           tooltip: {
             formatter: function() {
-              return 'Category: <b>' + this.x + '</b><br/>Difficulty: <b>' + this.series.name + '</b>';
+              return 'Category: <b>' + getCategory(this.x) + '</b><br/>Difficulty: <b>' + this.series.name + '</b>';
             }
           },
           series: [{
