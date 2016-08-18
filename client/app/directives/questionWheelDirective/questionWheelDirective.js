@@ -6,7 +6,7 @@ angular.module('pokExamApp')
       restrict: 'EA',
       templateUrl: 'app/directives/questionWheelDirective/questionWheelDirective.html',
       scope: {},
-      controller: ['$scope', function($scope) {
+      controller: ['$scope', '$uibModal', function($scope, $uibModal) {
         console.log("Connecting to the question wheel directive");
         $('#container').highcharts({
 
@@ -62,7 +62,22 @@ angular.module('pokExamApp')
               point: {
                 events: {
                   click: function() {
+                    $scope.category = this.x;
+                    $scope.difficulty = this.series.name; 
                     console.log('Category: ' + this.x + ' Difficulty: ' + this.series.name);
+                    var modalInstance = $uibModal.open({
+                      animation: true,
+                      templateUrl: 'app/modals/questionModal.html',
+                      controller: 'questionModalCtrl',
+                      size: 'lg',
+                      scope: $scope,
+                      resolve: {}
+                    });
+
+                    modalInstance.result.then(function (plan) {
+                    }, function () {
+                      console.log("Modal dismissed");
+                    });
                   }
                 }
               },

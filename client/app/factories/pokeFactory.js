@@ -23,6 +23,10 @@ angular.module('pokExamApp').factory('PokeFactory', function($http, $q){
               var num = Math.floor(Math.random() *150) + 1;
               urlAddition = 'pokemon/' + num + '/';
               break;
+            case 'getRandomPokeMin':
+                var num = Math.floor(Math.random() *150) + 1;
+                urlAddition = 'pokemon-species/' + num + '/';
+                break;
             default:
                 return 'error';
         }
