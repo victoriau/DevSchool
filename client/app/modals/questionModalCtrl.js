@@ -19,8 +19,9 @@ angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope',
     $scope.question = "";
     $scope.answers = [];
 
-    //Moves Questions 
+    //Moves Questions
     if($scope.category === 90){
+      $scope.categoryName = "Moves"
       var moves = ["dark", "ice", "bug", "water", "normal", "ghost", "fighting", "ground", "grass", "psychic", "rock", "electric"];
       $scope.question = "What type of move is ";
       var tempAnswers = [];
@@ -48,7 +49,8 @@ angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope',
 
     //Who's that Pokemon Questions
     if($scope.category === 180){
-      $scope.question = "Who's this Pokemon?";
+      $scope.categoryName = "Who's that Pokemon?";
+      $scope.question = "";
       var tempAnswers = [];
       PokeFactory.callPoke('getRandomPoke').then(function(results){
         tempAnswers.push(results.name);
@@ -70,6 +72,7 @@ angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope',
 
     //Evolution Question
     if($scope.category === 45){
+      $scope.categoryName = "Evolution";
       var tempAnswers = [];
       $scope.question = "";
       $scope.answers = [];
