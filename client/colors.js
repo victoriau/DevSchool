@@ -54,13 +54,13 @@ var grays = [
 
 var unanswered = [
     '#FFBFBF',
-    '#DDDDDD',
+    '#BFBFBF',
     '#8F8F8F'
 ];
 
 var answered = [
     '#EB4A4A',
-    '#EFEFEF',
+    '#F0F0F0',
     '#333333'
 ];
 
