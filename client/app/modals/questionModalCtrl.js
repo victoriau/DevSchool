@@ -19,6 +19,22 @@ angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope',
     $scope.question = "";
     $scope.answers = [];
 
+    //Stats Questons
+    if($scope.category === 135){
+      $scope.categoryName = "Stats";
+      $scope.question = "Stats is a work in progress. Select true.";
+      $scope.answers = ["True", "False", "Nope", "None of the Above"];
+      $scope.correctAnswer = "True";
+    }
+
+    //Misc. Questons
+    if($scope.category === 315){
+      $scope.categoryName = "Miscellaneous";
+      $scope.question = "Miscellaneous is a work in progress. Select true.";
+      $scope.answers = ["True", "False", "Nope", "None of the Above"];
+      $scope.correctAnswer = "True";
+    }
+
     //Moves Questions
     if($scope.category === 90){
       $scope.categoryName = "Moves"
