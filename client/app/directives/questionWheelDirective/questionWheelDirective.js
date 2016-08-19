@@ -5,13 +5,23 @@ angular.module('pokExamApp')
     return {
       restrict: 'EA',
       templateUrl: 'app/directives/questionWheelDirective/questionWheelDirective.html',
-      scope: {},
+      scope: {correct: "="},
 
       controller: ['$scope', '$uibModal', 'PokeFactory', 'MusicFactory', function($scope, $uibModal, PokeFactory, MusicFactory) {
+        $scope.alive = [true, true, true, true, true, true];
+        $scope.numLives = 0;
         PokeFactory.callPoke('allPokemon').then(function(results){
           $scope.allPokemon = results.results;
           console.log($scope.allPokemon);
         });
+
+        $scope.checkLives = function(correct){
+          $scope.alive[$scope.numLives] = correct;
+
+          if(!correct){
+            $scope.numLives += 1;
+          } 
+        }
 
           function getCategory(x) {
               switch(x) {
@@ -110,16 +120,18 @@ angular.module('pokExamApp')
                     });
 
                     var disablePiece = function(color) {
-                        var piece = $scope.clickedPiece.series.data[$scope.index];
-                        console.log(piece);
+                        var piece = $scope.clickedPiece.series.data[$scope.index].setColor(color);
+                        /*console.log(piece);
                         piece.color = color;
                         piece.events.click = function() {
                             console.log("Test");
                             return false;
                         };
-                        $scope.clickedPiece.series.setData($scope.clickedPiece.series.data,true); //SET DATA TO ITSELF TO RERENDER
+                        //$scope.clickedPiece.series.redraw();
+                        $scope.clickedPiece.series.setData($scope.clickedPiece.series.data,true); //SET DATA TO ITSELF TO RERENDER*/
                     }
                     modalInstance.result.then(function (correct) {
+                      $scope.checkLives(correct);
                         console.log("User answered correctly? " + correct);
                         if (!correct) {
                             //send message to lives directive to decrement lives
