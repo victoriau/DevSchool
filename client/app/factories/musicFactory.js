@@ -7,6 +7,7 @@ angular.module('pokExamApp').factory('MusicFactory', function($http, $q) {
   var mainMusic = document.getElementById("mainMusic");
   var battleMusic = document.getElementById("battleMusic");
   var successFailSound = document.getElementById("successFailSound");
+  var winnerMusic = document.getElementById("winnerMusic");
 
   var mainSongs = [
     'hurry_along',
@@ -55,8 +56,8 @@ angular.module('pokExamApp').factory('MusicFactory', function($http, $q) {
     mainMuicIndex = (mainMuicIndex + 1) % mainSongs.length;
   };
   service.playBattleMusic = function(intent) {
-    mainMusic.pause();
     battleMusic.src = musicPath + battleSongs[battleMusicIndex] + '.mp3';
+    mainMusic.pause();
     battleMusic.play();
     battleMusicIndex = (battleMusicIndex + 1) % battleSongs.length;
   };
@@ -68,6 +69,11 @@ angular.module('pokExamApp').factory('MusicFactory', function($http, $q) {
   };
   service.playFailureSound = function(intent) {
     //TODO could not find any failure sounds
+  };
+  service.playWinnerMusic = function(intent) {
+    winnerMusic.src = musicPath + 'ending' + '.mp3';
+    mainMusic.pause();
+    winnerMusic.play();
   };
   return service;
 });

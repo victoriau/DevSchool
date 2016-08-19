@@ -32,7 +32,6 @@ angular.module('pokExamApp')
 
         $scope.checkLives = function(correct){
           $scope.alive[$scope.numIncorrect] = correct;
-
           if(!correct){
             console.log($scope.numIncorrect);
             if($scope.numIncorrect === 5){
@@ -67,6 +66,8 @@ angular.module('pokExamApp')
             resolve: {}
           });
         }
+
+
 
         function getCategory(x) {
           switch (x) {
@@ -371,6 +372,7 @@ angular.module('pokExamApp')
                 pointPlacement: 'between'
               }]
             });
+
         }],
       link: function() {}
     }; //end of return statement
