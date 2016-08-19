@@ -11,6 +11,6 @@ angular.module('pokExamApp')
     $scope.test = "Victoria";
     $scope.maxLives = 6;
     $scope.lives = $scope.maxLives;
-    console.log("Lives: " + $scope.lives);
+    // console.log("Lives: " + $scope.lives);
 
   });//End Module

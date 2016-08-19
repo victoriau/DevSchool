@@ -31,11 +31,29 @@ angular.module('pokExamApp')
 
 
         $scope.checkLives = function(correct){
-          $scope.alive[$scope.numLives] = correct;
+          $scope.alive[$scope.numIncorrect] = correct;
 
-          if (!correct) {
-            $scope.numLives += 1;
+          if(!correct){
+            console.log($scope.numIncorrect);
+            if($scope.numIncorrect === 5){
+              $scope.loser();
+            }
+            else{
+              $scope.numIncorrect += 1;
+            }
           }
+        }
+
+        $scope.loser = function(){
+          console.log('opening pop up');
+          var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'app/modals/loserModal/loserModal.html',
+            controller: 'loserModalCtrl',
+            size: 'lg',
+            scope: $scope,
+            resolve: {}
+          });
         }
 
         function getCategory(x) {
@@ -63,7 +81,6 @@ angular.module('pokExamApp')
 
         MusicFactory.playMainMusic();
 
-        console.log("Connecting to the question wheel directive");
         $scope.chart = Highcharts.chart({
 
             credits: {
@@ -137,17 +154,56 @@ angular.module('pokExamApp')
 
                       var disablePiece = function(color) {
                         var piece = $scope.clickedPiece.series.data[$scope.index];
-                        console.log(piece);
                         piece.color = color;
                         piece.fill = color;
                         piece.options.color = color;
                         piece.floodColor = color;
-                        console.log(piece.series.data);
                         $scope.chart.series[0].data[$scope.index].graphic.attr({
                           fill: "red"
                         });
 
                         $scope.chart.redraw();
+
+                        var successes = [];
+                        //setup successes
+                        for (var s in $scope.chart.series) {
+                          var tempArray = [];
+                          for (var i in $scope.chart.series[s].data) {
+                            tempArray.push(false);
+                          }
+                          successes.push(tempArray);
+                        }
+
+                        //populate successes
+                        for (var s in $scope.chart.series) {
+                          var tempArray = [];
+                          for (var i in $scope.chart.series[s].data) {
+                            if (answered.indexOf($scope.chart.series[s].data[i].color) != -1 ){
+                              console.log("Win at (" + s + "," + i + ")");
+                              successes[s][i] = true;
+                            }
+                          }
+                        }
+
+                        //Check for wins from inside out
+                        var wonGame = true;
+                        for (var i in $scope.chart.series[0].data) {
+                          var columnWon = true;
+                          for (var s in $scope.chart.series) {
+                            if (successes[s][i] === false) {
+                              columnWon = false;
+                              wonGame = false;
+                            }
+                          }
+                          if (columnWon) {
+                            //WON COLUMN I
+                            console.log("Won column: " + i);
+                          }
+                        }
+                        if (wonGame) {
+                          //WON GAME
+                          console.log("Won game!!!!");
+                        }
                       }
                       modalInstance.result.then(function(correct) {
                         $scope.checkLives(correct);
