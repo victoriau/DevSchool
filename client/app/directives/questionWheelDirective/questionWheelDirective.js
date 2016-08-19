@@ -8,9 +8,9 @@ angular.module('pokExamApp')
       scope: {correct: "="},
 
       controller: ['$scope', '$uibModal', 'PokeFactory', 'MusicFactory', function($scope, $uibModal, PokeFactory, MusicFactory) {
-        $scope.alive = [true, true, true, true, true, true];
-        // $scope.alive = [false, false, false, false, false, true]
-        $scope.numIncorrect = 0;
+        // $scope.alive = [true, true, true, true, true, true];
+        $scope.alive = [false, false, false, false, false, true]
+        $scope.numIncorrect = 5;
         PokeFactory.callPoke('allPokemon').then(function(results){
           $scope.allPokemon = results.results;
           // console.log($scope.allPokemon);
