@@ -31,15 +31,15 @@ angular.module('pokExamApp')
 
 
         $scope.checkLives = function(correct){
-          $scope.alive[$scope.numIncorrect] = correct;
+          $scope.alive[$scope.numLives] = correct;
 
           if(!correct){
-            console.log($scope.numIncorrect);
-            if($scope.numIncorrect === 5){
+            console.log($scope.numLives);
+            if($scope.numLives === 5){
               $scope.loser();
             }
             else{
-              $scope.numIncorrect += 1;
+              $scope.numLives += 1;
             }
           }
         }
