@@ -17,6 +17,12 @@ angular.module('pokExamApp')
           //console.log($scope.allPokemon);
         });
 
+        PokeFactory.callPoke('allTypes').then(function(results){
+          $scope.allTypes = results.results;
+          console.log("types");
+          console.log($scope.allTypes);
+        });
+
         PokeFactory.callPoke('allItems').then(function(results){
           $scope.allItems= results.results;
           console.log($scope.allItems);
@@ -147,17 +153,56 @@ angular.module('pokExamApp')
 
                       var disablePiece = function(color) {
                         var piece = $scope.clickedPiece.series.data[$scope.index];
-                        console.log(piece);
                         piece.color = color;
                         piece.fill = color;
                         piece.options.color = color;
                         piece.floodColor = color;
-                        console.log(piece.series.data);
                         $scope.chart.series[0].data[$scope.index].graphic.attr({
                           fill: "red"
                         });
 
                         $scope.chart.redraw();
+
+                        var successes = [];
+                        //setup successes
+                        for (var s in $scope.chart.series) {
+                          var tempArray = [];
+                          for (var i in $scope.chart.series[s].data) {
+                            tempArray.push(false);
+                          }
+                          successes.push(tempArray);
+                        }
+
+                        //populate successes
+                        for (var s in $scope.chart.series) {
+                          var tempArray = [];
+                          for (var i in $scope.chart.series[s].data) {
+                            if (answered.indexOf($scope.chart.series[s].data[i].color) != -1 ){
+                              console.log("Win at (" + s + "," + i + ")");
+                              successes[s][i] = true;
+                            }
+                          }
+                        }
+
+                        //Check for wins from inside out
+                        var wonGame = true;
+                        for (var i in $scope.chart.series[0].data) {
+                          var columnWon = true;
+                          for (var s in $scope.chart.series) {
+                            if (successes[s][i] === false) {
+                              columnWon = false;
+                              wonGame = false;
+                            }
+                          }
+                          if (columnWon) {
+                            //WON COLUMN I
+                            console.log("Won column: " + i);
+                          }
+                        }
+                        if (wonGame) {
+                          //WON GAME
+                          console.log("Won game!!!!");
+                        }
                       }
                       modalInstance.result.then(function(correct) {
                         $scope.checkLives(correct);
