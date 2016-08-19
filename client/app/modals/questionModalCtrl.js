@@ -54,9 +54,11 @@ angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope',
         if(results.chain.evolves_to.length === 0){
           var num = Math.floor(Math.random() *811);
           tempAnswers.push($scope.allPokemon[num].name);
+          $scope.correctAnswer = "This pokemon does not evolve";
         }else{
           console.log(results.chain.evolves_to[0].species.name);
           tempAnswers.push(results.chain.evolves_to[0].species.name);
+          $scope.correctAnswer = results.chain.evolves_to[0].species.name;
         }
 
         var num = Math.floor(Math.random() *811);
