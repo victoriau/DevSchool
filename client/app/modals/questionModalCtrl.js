@@ -131,10 +131,17 @@ angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope',
         $scope.correctAnswer = badgearr[gym];
         while (tempAnswers.length < 4) {
             var otherBadge = Math.floor(Math.random() * 8);
-            if (otherBadge != gym) {
+            var dup = false;
+            for(var i = 0; i< tempAnswers.length; i++){
+                if(tempAnswers[i] === badgearr[otherBadge]){
+                    dup = true;
+                }
+            }
+            if (otherBadge != gym && !dup) {
                 tempAnswers.push(badgearr[otherBadge]);
             }
         }
+        
         $scope.answers = $scope.shuffleArray(tempAnswers);    
     }
     
