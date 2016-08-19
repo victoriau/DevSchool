@@ -9,18 +9,37 @@ angular.module('pokExamApp')
 
       controller: ['$scope', '$uibModal', 'PokeFactory', 'MusicFactory', function($scope, $uibModal, PokeFactory, MusicFactory) {
         $scope.alive = [true, true, true, true, true, true];
-        $scope.numLives = 0;
+        // $scope.alive = [false, false, false, false, false, true]
+        $scope.numIncorrect = 0;
         PokeFactory.callPoke('allPokemon').then(function(results){
           $scope.allPokemon = results.results;
-          console.log($scope.allPokemon);
+          // console.log($scope.allPokemon);
         });
 
         $scope.checkLives = function(correct){
-          $scope.alive[$scope.numLives] = correct;
+          $scope.alive[$scope.numIncorrect] = correct;
 
           if(!correct){
-            $scope.numLives += 1;
-          } 
+            console.log($scope.numIncorrect);
+            if($scope.numIncorrect === 5){
+              $scope.loser();
+            }
+            else{
+              $scope.numIncorrect += 1;
+            }
+          }
+        }
+
+        $scope.loser = function(){
+          console.log('opening pop up');
+          var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'app/modals/loserModal/loserModal.html',
+            controller: 'loserModalCtrl',
+            size: 'lg',
+            scope: $scope,
+            resolve: {}
+          });
         }
 
           function getCategory(x) {
@@ -48,7 +67,6 @@ angular.module('pokExamApp')
 
         MusicFactory.playMainMusic();
 
-        console.log("Connecting to the question wheel directive");
         $('#container').highcharts({
 
           credits: {
