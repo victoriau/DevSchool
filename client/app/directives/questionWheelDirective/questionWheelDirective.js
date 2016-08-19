@@ -110,14 +110,15 @@ angular.module('pokExamApp')
                     });
 
                     var disablePiece = function(color) {
-                        var piece = $scope.clickedPiece.series.data[$scope.index];
-                        console.log(piece);
+                        var piece = $scope.clickedPiece.series.data[$scope.index].setColor(color);
+                        /*console.log(piece);
                         piece.color = color;
                         piece.events.click = function() {
                             console.log("Test");
                             return false;
                         };
-                        $scope.clickedPiece.series.setData($scope.clickedPiece.series.data,true); //SET DATA TO ITSELF TO RERENDER
+                        //$scope.clickedPiece.series.redraw();
+                        $scope.clickedPiece.series.setData($scope.clickedPiece.series.data,true); //SET DATA TO ITSELF TO RERENDER*/
                     }
                     modalInstance.result.then(function (correct) {
                         console.log("User answered correctly? " + correct);
