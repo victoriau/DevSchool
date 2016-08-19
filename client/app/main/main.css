@@ -36,6 +36,11 @@
 .pokeball {
   width: 70px;
 }
+
+.Pokebadge {
+    width: 70px;
+}
+
 @font-face {
   font-family: PokeFont;
   src: url('../../assets/pokemon_hollow.ttf');
