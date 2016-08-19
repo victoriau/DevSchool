@@ -39,13 +39,14 @@ angular.module('pokExamApp')
         MusicFactory.playMainMusic();
 
         console.log("Connecting to the question wheel directive");
-        $('#container').highcharts({
+        $scope.chart = Highcharts.chart({
 
           credits: {
             enabled: false
           },
 
           chart: {
+              renderTo: 'container',
             polar: true
           },
 
@@ -110,33 +111,48 @@ angular.module('pokExamApp')
                     });
 
                     var disablePiece = function(color) {
-                        var piece = $scope.clickedPiece.series.data[$scope.index].setColor(color);
-                        /*console.log(piece);
+                        var piece = $scope.clickedPiece.series.data[$scope.index];
+                        console.log(piece);
                         piece.color = color;
-                        piece.events.click = function() {
-                            console.log("Test");
-                            return false;
-                        };
-                        //$scope.clickedPiece.series.redraw();
-                        $scope.clickedPiece.series.setData($scope.clickedPiece.series.data,true); //SET DATA TO ITSELF TO RERENDER*/
+                        piece.fill = color;
+                        piece.options.color = color;
+                        piece.floodColor = color;
+                        console.log(piece.series.data);
+                        $scope.chart.series[0].data[$scope.index].graphic.attr({
+                            fill:"red"
+                        });
+                        
+                        $scope.chart.redraw();
+                        
+                        //piece.series.setData(copy, true);
                     }
                     modalInstance.result.then(function (correct) {
                         console.log("User answered correctly? " + correct);
                         if (!correct) {
                             //send message to lives directive to decrement lives
                         } else {
-                            switch ($scope.category, $scope.difficulty) {
-                                case 180, "Easy":
+                            console.log($scope.category, $scope.difficulty);
+                            switch ($scope.difficulty) {
+                                case "Easy":
                                     disablePiece(answered[2]);
                                     break;
-                                case 180, "Medium":
-                                    disablePiece(answered[1]);
-                                    break;
-                                case 180, "Hard":
-                                    disablePiece(answered[1]);
-                                    break;
                                 default:
-                                    console.log($scope.category, $scope.difficulty);
+                                    switch ($scope.category) {
+                                        case 0:
+                                        case 45:
+                                        case 270:
+                                        case 315:
+                                            disablePiece(answered[0]);
+                                            break;
+                                        case 90:
+                                        case 135:
+                                        case 180:
+                                        case 225:
+                                            disablePiece(answered[1]);
+                                            break;
+                                        default:
+                                            console.log("no");
+                                    }
                             }
                         }
                     }, function () {
