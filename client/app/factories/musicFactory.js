@@ -39,9 +39,9 @@ angular.module('pokExamApp').factory('MusicFactory', function($http, $q) {
 
   var musicPath = '../../assets/music/';
 
-  var mainMuicIndex = 0;
-  var battleMusicIndex = 0;
-  var successIndex = 0;
+  var mainMuicIndex = Math.floor(Math.random() * mainSongs.length);
+  var battleMusicIndex = Math.floor(Math.random() * battleSongs.length);
+  var successIndex = Math.floor(Math.random() * successSounds.length);
   var failIndex = 0;
 
   successFailSound.addEventListener("ended", function() {
@@ -67,7 +67,7 @@ angular.module('pokExamApp').factory('MusicFactory', function($http, $q) {
     successIndex = (successIndex + 1) % successSounds.length;
   };
   service.playFailureSound = function(intent) {
-      //TODO could not find any failure sounds
+    //TODO could not find any failure sounds
   };
   return service;
 });
