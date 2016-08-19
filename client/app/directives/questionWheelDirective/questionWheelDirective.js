@@ -12,15 +12,21 @@ angular.module('pokExamApp')
         $scope.numLives = 0;
         PokeFactory.callPoke('allPokemon').then(function(results){
           $scope.allPokemon = results.results;
-          console.log($scope.allPokemon);
+          //console.log($scope.allPokemon);
         });
+
+        PokeFactory.callPoke('allItems').then(function(results){
+          $scope.allItems= results.results;
+          console.log($scope.allItems);
+        });
+
 
         $scope.checkLives = function(correct){
           $scope.alive[$scope.numLives] = correct;
 
           if(!correct){
             $scope.numLives += 1;
-          } 
+          }
         }
 
           function getCategory(x) {
@@ -131,9 +137,9 @@ angular.module('pokExamApp')
                         $scope.chart.series[0].data[$scope.index].graphic.attr({
                             fill:"red"
                         });
-                        
+
                         $scope.chart.redraw();
-                        
+
                         //piece.series.setData(copy, true);
                     }
                     modalInstance.result.then(function (correct) {
