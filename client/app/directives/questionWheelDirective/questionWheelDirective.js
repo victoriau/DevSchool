@@ -10,7 +10,14 @@ angular.module('pokExamApp')
       controller: ['$scope', '$uibModal', 'PokeFactory', 'MusicFactory', function($scope, $uibModal, PokeFactory, MusicFactory) {
         PokeFactory.callPoke('allPokemon').then(function(results){
           $scope.allPokemon = results.results;
-          console.log($scope.allPokemon);
+          //console.log($scope.allPokemon);
+
+        });
+
+        PokeFactory.callPoke('allTypes').then(function(results){
+          $scope.allTypes = results.results;
+          console.log("types");
+          console.log($scope.allTypes);
         });
 
           function getCategory(x) {

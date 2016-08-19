@@ -69,6 +69,99 @@ angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope',
       });//End callPoke
     }//End question type
 
+    //type Effectiveness category
+    if($scope.category === 0){
+      $scope.question = "";
+      var tempAnswers = [];
+      $scope.categoryName = "Type Effectiveness"
+      PokeFactory.callPoke('getEffectiveness').then(function(results){
+      $scope.answers = [];
+      //var name = results.chain.species.name;
+      var damageLevelCase = Math.floor(Math.random() *3)+1;
+      var damageLevel;
+
+      switch(damageLevelCase) {
+          case 1:
+              var damageLevel = "half_damage_to";
+
+
+              $scope.question = results.name.charAt(0).toUpperCase() + results.name.slice(1) + " types inflict half damage on _____ types";
+              var answersArray = results.damage_relations.half_damage_to;
+              console.log("length" + answersArray.length);
+              if (answersArray.length == 0) {
+                $scope.correctAnswer = "none";
+              } else {
+                $scope.correctAnswer = results.damage_relations.half_damage_to[0].name;
+              }
+              console.log(damageLevel);
+              console.log("1");
+              break;
+          case 2:
+              console.log("2");
+              var damageLevel = "double_damage_to";
+              //$scope.question = results.name + " types inflict double damage on _____ types";
+              $scope.question = results.name.charAt(0).toUpperCase() + results.name.slice(1) + " types inflict double damage on _____ types";
+
+              var answersArray = results.damage_relations.double_damage_to;
+                            console.log("length" + answersArray.length);
+              if (answersArray.length == 0) {
+                $scope.correctAnswer = "none";
+              } else {
+                $scope.correctAnswer = results.damage_relations.double_damage_to[0].name;
+              }
+              console.log(damageLevel);
+              break;
+          case 3:
+              console.log("3");
+              var damageLevel = "no_damage_to";
+              $scope.question = results.name.charAt(0).toUpperCase() + results.name.slice(1) + " types inflict no damage on _____ types";
+
+              var answersArray = results.damage_relations.no_damage_to;
+                            console.log("length" + answersArray.length);
+              if (answersArray.length == 0) {
+                $scope.correctAnswer = "none";
+              } else {
+                $scope.correctAnswer = results.damage_relations.no_damage_to[0].name;
+              }
+              console.log(damageLevel);
+              break;
+
+          default:
+              console.log("default");
+      }
+
+      //$scope.question = results.name + " evolves to _____";
+      console.log(results);
+
+      //  $scope.correctAnswer = results.name;
+
+        tempAnswers.push($scope.correctAnswer);
+                          console.log("correct answer" + tempAnswers[0]);
+
+        while(tempAnswers.length < 4){
+                 var num = Math.floor(Math.random() * 18);
+                 var good = true;
+
+                 for(var i = 0; i < tempAnswers.length; i++){
+                   if(tempAnswers[i] === $scope.allTypes[num].name){
+                     good = false;
+                   }
+                 }
+                 console.log(answersArray);
+                 for(var j = 0; j < answersArray.length; j++){
+                   if($scope.allTypes[num].name === answersArray[j].name){
+                     good = false;
+                   }
+                 }
+                 if(good){
+                   tempAnswers.push($scope.allTypes[num].name);
+                 }
+               }
+        $scope.answers = $scope.shuffleArray(tempAnswers);
+
+      });//End callPoke
+    }//End question type
+
     $scope.shuffleArray = function(tempAnswers){
       var array = tempAnswers;
       for (var i = array.length - 1; i > 0; i--) {
