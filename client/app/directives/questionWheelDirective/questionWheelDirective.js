@@ -11,6 +11,7 @@ angular.module('pokExamApp')
 
       controller: ['$scope', '$uibModal', 'PokeFactory', 'MusicFactory', function($scope, $uibModal, PokeFactory, MusicFactory) {
         $scope.alive = [true, true, true, true, true, true];
+        $scope.showX = false;
         $scope.numLives = 0;
         PokeFactory.callPoke('allPokemon').then(function(results) {
           $scope.allPokemon = results.results;
@@ -222,9 +223,21 @@ angular.module('pokExamApp')
                         console.log("User answered correctly? " + correct);
                         if (!correct) {
                           MusicFactory.playFailureSound();
+
+                          $scope.showX = true;
+                          setTimeout(function(){
+                              $scope.showX = false;
+                          }, 700);
+
                           //send message to lives directive to decrement lives
                         } else {
                           MusicFactory.playSuccessSound();
+
+                          $scope.showCheck = true;
+                          setTimeout(function(){
+                              $scope.showCheck = false;
+                          }, 700);
+
                           console.log($scope.category, $scope.difficulty);
                           switch ($scope.difficulty) {
                             case "Easy":

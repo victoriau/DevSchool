@@ -4,6 +4,9 @@
 	<audio id="battleMusic" type="audio/mpeg" src="../../assets/music/battle_theme.mp3"></audio>
 </div>
 
+<h1 style="color: #AAFFAA" align="center" ng-show="showCheck">&#x2713</h1>
+<h1 style="color: #FFAAAA" align="center" ng-show="showX">X</h1>
+
 <div class="row">
 	<div class="col-md-offset-4">
 	<div class="col-md-1" ng-repeat="row in [1,  2, 3, 4, 5, 6] track by $index" align="center">
