@@ -211,6 +211,43 @@ angular.module('pokExamApp')
                         if (columnWon) {
                           //WON COLUMN I
                           console.log("Won column: " + i);
+                           i=parseInt(i);
+                           switch (i) {
+                               case 0:
+                                   $scope.showBoulderBadge = true;
+                                   console.log("win boulder");
+                                   break;
+                               case 1:
+                                   $scope.showCascadeBadge = true;
+                                   console.log("win c");
+                                   break;
+                               case 2:
+                                   $scope.showThunderBadge = true;
+                                   console.log("win t");
+                                   break;
+                               case 3:
+                                   $scope.showRainbowBadge = true;
+                                   console.log("win r");
+                                   break;
+                               case 4:
+                                   $scope.showSoulBadge = true;
+                                   console.log("win s");
+                                   break;
+                               case 5:
+                                   $scope.showMarshBadge = true;
+                                   console.log("win m");
+                                   break;
+                               case 6:
+                                   $scope.showVolcanoBadge = true;
+                                   console.log("win v");
+                                   break;
+                               case 7:
+                                   $scope.showEarthBadge = true;
+                                   console.log("win e");
+                                   break;
+                               default:
+                                   break;
+                           }
                         }
                       }
                       if (wonGame) {

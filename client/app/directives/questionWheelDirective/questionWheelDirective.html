@@ -1,33 +1,40 @@
 
 <div class="row">
-    <div class=col-md-2>
+    <div class="col-md-1"></div>
+    <div class=col-md-1>
         <table>
-            <tr height="115px"> </tr>
-            <tr> </tr>
-            <tr>
-                <td><img src="assets/images/boulder-dark.png" class="Pokebadge" align="center"></td>
-                <td><img src="assets/images/cascade-dark.png" class="Pokebadge" align="center"></td>
-            </tr>
-            <tr>
-                <td><img src="assets/images/thunder-dark.png" class="Pokebadge" align="center"></td>
-                <td><img src="assets/images/rainbow-dark.png" class="Pokebadge" align="center"></td>
-            </tr>
-            <tr>
-                <td><img src="assets/images/soul-dark.png" class="Pokebadge" align="center"></td>
-                <td><img src="assets/images/marsh-dark.png" class="Pokebadge" align="center"></td>
-            </tr>
-            <tr>
-                <td><img src="assets/images/volcano-dark.png" class="Pokebadge" align="center"></td>
-                <td><img src="assets/images/earth-dark.png" class="Pokebadge" align="center"></td>
-            </tr>
-        
-        
-        </table>
-    
-    
-    
+            <!-- <tr height="10px"></tr> -->
+           <tr>
+               <td><img src="assets/images/boulder-dark.png" class="Pokebadge" align="center" ng-if="!showBoulderBadge">
+               <img src="assets/images/boulder.png" class="Pokebadge" align="center" ng-if="showBoulderBadge"></td>
+               <td><img src="assets/images/cascade-dark.png" class="Pokebadge" align="center" ng-if="!showCascadeBadge">
+               <img src="assets/images/cascade.png" class="Pokebadge" align="center" ng-if="showCascadeBadge"></td>
+           </tr>
+           <tr>
+               <td><img src="assets/images/thunder-dark.png" class="Pokebadge" align="center" ng-if="!showThunderBadge">
+               <img src="assets/images/thunder.png" class="Pokebadge" align="center" ng-if="showThunderBadge"></td>
+               <td><img src="assets/images/rainbow-dark.png" class="Pokebadge" align="center" ng-if="!showRainbowBadge">
+               <img src="assets/images/rainbow.png" class="Pokebadge" align="center" ng-if="showRainbowBadge"></td>
+           </tr>
+           <tr>
+               <td><img src="assets/images/soul-dark.png" class="Pokebadge" align="center" ng-if="!showSoulBadge">
+               <img src="assets/images/soul.png" class="Pokebadge" align="center" ng-if="showSoulBadge"></td>
+               <td><img src="assets/images/marsh-dark.png" class="Pokebadge" align="center" ng-if="!showMarshBadge">
+               <img src="assets/images/marsh.png" class="Pokebadge" align="center" ng-if="showMarshBadge"></td>
+           </tr>
+           <tr>
+               <td><img src="assets/images/volcano-dark.png" class="Pokebadge" align="center" ng-if="!showVolcanoBadge">
+               <img src="assets/images/volcano.png" class="Pokebadge" align="center" ng-if="showVolcanoBadge"></td>
+               <td><img src="assets/images/earth-dark.png" class="Pokebadge" align="center" ng-if="!showEarthBadge">
+               <img src="assets/images/earth.png" class="Pokebadge" align="center" ng-if="showEarthBadge"></td>
+           </tr>
+       
+       </table>
+
+
+
     </div>
-	<div id="container" style="width: 600px; height: 550px; margin: 0 auto"></div>    
+	<div id="container" style="width: 600px; height: 550px; margin: 0 auto"></div>
 	<audio id="mainMusic" type="audio/mpeg" src="../../assets/music/palette_town_theme.mp3"></audio>
 	<audio id="battleMusic" type="audio/mpeg" src="../../assets/music/battle_theme.mp3"></audio>
 </div>
