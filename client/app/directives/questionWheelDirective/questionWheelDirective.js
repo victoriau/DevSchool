@@ -55,6 +55,18 @@ angular.module('pokExamApp')
           });
         }
 
+        $scope.winner = function(){
+          console.log('opening pop up');
+          var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'app/modals/winnerModal/winnerModal.html',
+            controller: 'winnerModalCtrl',
+            size: 'lg',
+            scope: $scope,
+            resolve: {}
+          });
+        }
+
         function getCategory(x) {
           switch (x) {
             case 0:
@@ -202,6 +214,7 @@ angular.module('pokExamApp')
                         if (wonGame) {
                           //WON GAME
                           console.log("Won game!!!!");
+                          $scope.winner();
                         }
                       }
                       modalInstance.result.then(function(correct) {
