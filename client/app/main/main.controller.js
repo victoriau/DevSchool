@@ -13,5 +13,4 @@ angular.module('pokExamApp')
     $scope.lives = $scope.maxLives;
     console.log("Lives: " + $scope.lives);
 
-
   });//End Module

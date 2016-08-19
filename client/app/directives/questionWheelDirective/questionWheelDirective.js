@@ -6,29 +6,35 @@ angular.module('pokExamApp')
       restrict: 'EA',
       templateUrl: 'app/directives/questionWheelDirective/questionWheelDirective.html',
       scope: {},
-      controller: ['$scope', '$uibModal', 'MusicFactory', function($scope, $uibModal, MusicFactory) {
-        function getCategory(x) {
-          switch (x) {
-            case 0:
-              return 'Type Effectiveness';
-            case 45:
-              return 'Evolution';
-            case 90:
-              return 'Moves';
-            case 135:
-              return 'Pok\xE9mon Stats';
-            case 180:
-              return 'Who\'s That Pok\xE9mon?';
-            case 225:
-              return 'Items';
-            case 270:
-              return 'Badges';
-            case 315:
-              return 'Miscellaneous';
-            default:
-              return 'Unown Category';
+
+      controller: ['$scope', '$uibModal', 'PokeFactory', 'MusicFactory', function($scope, $uibModal, PokeFactory, MusicFactory) {
+        PokeFactory.callPoke('allPokemon').then(function(results){
+          $scope.allPokemon = results.results;
+          console.log($scope.allPokemon);
+        });
+
+          function getCategory(x) {
+              switch(x) {
+                  case 0:
+                      return 'Type Effectiveness';
+                  case 45:
+                      return 'Evolution';
+                  case 90:
+                      return 'Moves';
+                  case 135:
+                      return 'Pok\xE9mon Stats';
+                  case 180:
+                      return 'Who\'s That Pok\xE9mon?';
+                  case 225:
+                      return 'Items';
+                  case 270:
+                      return 'Badges';
+                  case 315:
+                      return 'Miscellaneous';
+                  default:
+                      return 'Unown Category';
+              }
           }
-        }
 
         MusicFactory.playMainMusic();
 
@@ -102,7 +108,7 @@ angular.module('pokExamApp')
                       scope: $scope,
                       resolve: {}
                     });
-                      
+
                     var disablePiece = function(color) {
                         var piece = $scope.clickedPiece.series.data[$scope.index].setColor(color);
                         /*console.log(piece);
