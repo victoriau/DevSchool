@@ -19,9 +19,38 @@ angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope',
     $scope.question = "";
     $scope.answers = [];
 
+    //Moves Questions
+    if($scope.category === 90){
+      $scope.categoryName = "Moves"
+      var moves = ["dark", "ice", "bug", "water", "normal", "ghost", "fighting", "ground", "grass", "psychic", "rock", "electric"];
+      $scope.question = "What type of move is ";
+      var tempAnswers = [];
+      PokeFactory.callPoke('getMove').then(function(results){
+        $scope.question = $scope.question + results.names[0].name + "?";
+        tempAnswers.push(results.type.name);
+
+        $scope.correctAnswer = results.type.name;
+
+        while(tempAnswers.length < 4){
+          var num = Math.floor(Math.random() * 12);
+          var good = true;
+          for(var i = 0; i < tempAnswers.length; i++){
+            if(tempAnswers[i] === moves[num]){
+              good = false;
+            }
+          }
+          if(good){
+            tempAnswers.push(moves[num]);
+          }
+        }
+        $scope.answers = $scope.shuffleArray(tempAnswers);
+      });//End callPoke
+    }//End question type
+
     //Who's that Pokemon Questions
     if($scope.category === 180){
-      $scope.question = "Who's this Pokemon?";
+      $scope.categoryName = "Who's that Pokemon?";
+      $scope.question = "";
       var tempAnswers = [];
       PokeFactory.callPoke('getRandomPoke').then(function(results){
         tempAnswers.push(results.name);
@@ -43,6 +72,7 @@ angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope',
 
     //Evolution Question
     if($scope.category === 45){
+      $scope.categoryName = "Evolution";
       var tempAnswers = [];
       $scope.question = "";
       $scope.answers = [];
@@ -81,6 +111,41 @@ angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope',
       }
       return array;
     };
+    
+    
+    
+    //Badges Question    
+    var badgearr = ["Boulder Badge", "Cascade Badge", "Thunder Badge", "Rainbow Badge", "Soul Badge", "Marsh Badge", "Volcano Badge", "Earth Badge"];
+    var leaderarr = ["Brock", "Misty", "Lt. Surge", "Erika", "Koga", "Sabrina", "Blaine", "Giovanni"];
+    
+    if($scope.category === 270){
+        var tempAnswers = [];
+        $scope.question = "";
+        $scope.answers = [];
+        
+        var gym = Math.floor(Math.random() * 8);
+        
+        $scope.question = leaderarr[gym] + " awards which badge?";        
+        
+        tempAnswers.push(badgearr[gym]);
+        $scope.correctAnswer = badgearr[gym];
+        while (tempAnswers.length < 4) {
+            var otherBadge = Math.floor(Math.random() * 8);
+            var dup = false;
+            for(var i = 0; i< tempAnswers.length; i++){
+                if(tempAnswers[i] === badgearr[otherBadge]){
+                    dup = true;
+                }
+            }
+            if (otherBadge != gym && !dup) {
+                tempAnswers.push(badgearr[otherBadge]);
+            }
+        }
+        
+        $scope.answers = $scope.shuffleArray(tempAnswers);    
+    }
+    
+    
 
   }
 ]);

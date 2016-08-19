@@ -1,3 +1,14 @@
-<div id="container" style="width: 600px; height: 550px; margin: 0 auto"></div>
-<audio id="mainMusic" type="audio/mpeg" src="../../assets/music/palette_town_theme.mp3"></audio>
-<audio id="battleMusic" type="audio/mpeg" src="../../assets/music/battle_theme.mp3"></audio>
+<div class="row">
+	<div id="container" style="width: 600px; height: 550px; margin: 0 auto"></div>
+	<audio id="mainMusic" type="audio/mpeg" src="../../assets/music/palette_town_theme.mp3"></audio>
+	<audio id="battleMusic" type="audio/mpeg" src="../../assets/music/battle_theme.mp3"></audio>
+</div>
+
+<div class="row">
+	<div class="col-md-offset-4">
+	<div class="col-md-1" ng-repeat="row in [1,  2, 3, 4, 5, 6] track by $index" align="center">
+		<img src="assets/images/alive.png" class="pokeball" ng-show="alive[$index]" align="center">
+		<img src="assets/images/fainted.png" class="pokeball" ng-hide="alive[$index]" align="center">
+	</div>
+	<div class="col-md-offset-4">
+</div>

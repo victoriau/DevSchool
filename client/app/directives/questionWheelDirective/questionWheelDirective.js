@@ -5,13 +5,23 @@ angular.module('pokExamApp')
     return {
       restrict: 'EA',
       templateUrl: 'app/directives/questionWheelDirective/questionWheelDirective.html',
-      scope: {},
+      scope: {correct: "="},
 
       controller: ['$scope', '$uibModal', 'PokeFactory', 'MusicFactory', function($scope, $uibModal, PokeFactory, MusicFactory) {
+        $scope.alive = [true, true, true, true, true, true];
+        $scope.numLives = 0;
         PokeFactory.callPoke('allPokemon').then(function(results){
           $scope.allPokemon = results.results;
           console.log($scope.allPokemon);
         });
+
+        $scope.checkLives = function(correct){
+          $scope.alive[$scope.numLives] = correct;
+
+          if(!correct){
+            $scope.numLives += 1;
+          } 
+        }
 
           function getCategory(x) {
               switch(x) {
@@ -127,6 +137,7 @@ angular.module('pokExamApp')
                         //piece.series.setData(copy, true);
                     }
                     modalInstance.result.then(function (correct) {
+                      $scope.checkLives(correct);
                         console.log("User answered correctly? " + correct);
                         if (!correct) {
                             //send message to lives directive to decrement lives
