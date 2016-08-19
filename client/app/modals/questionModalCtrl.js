@@ -1,18 +1,21 @@
 'use strict';
 
 angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope', '$uibModalInstance',
-'PokeFactory', function ($http, $scope, $uibModalInstance, PokeFactory) {
+  'PokeFactory', 'MusicFactory',
+  function($http, $scope, $uibModalInstance, PokeFactory, MusicFactory) {
 
     $scope.user = "Victoria";
     $scope.answer;
     $scope.correctAnswer;
 
-    $scope.ok = function (answer) {
+    $scope.ok = function(answer) {
+      MusicFactory.playMainMusic();
       console.log("Selected: " + answer + "; Correct = " + $scope.correctAnswer);;
       $uibModalInstance.close(answer === $scope.correctAnswer);
     };
 
-    $scope.cancel = function () {
+    $scope.cancel = function() {
+      MusicFactory.playMainMusic();
       $uibModalInstance.dismiss('cancel');
     };
 
@@ -36,32 +39,32 @@ angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope',
     }
 
     //Moves Questions
-    if($scope.category === 90){
+    if ($scope.category === 90) {
       $scope.categoryName = "Moves"
       var moves = ["dark", "ice", "bug", "water", "normal", "ghost", "fighting", "ground", "grass", "psychic", "rock", "electric"];
       $scope.question = "What type of move is ";
       var tempAnswers = [];
-      PokeFactory.callPoke('getMove').then(function(results){
+      PokeFactory.callPoke('getMove').then(function(results) {
         $scope.question = $scope.question + results.names[0].name + "?";
         tempAnswers.push(results.type.name);
 
         $scope.correctAnswer = results.type.name;
 
-        while(tempAnswers.length < 4){
+        while (tempAnswers.length < 4) {
           var num = Math.floor(Math.random() * 12);
           var good = true;
-          for(var i = 0; i < tempAnswers.length; i++){
-            if(tempAnswers[i] === moves[num]){
+          for (var i = 0; i < tempAnswers.length; i++) {
+            if (tempAnswers[i] === moves[num]) {
               good = false;
             }
           }
-          if(good){
+          if (good) {
             tempAnswers.push(moves[num]);
           }
         }
         $scope.answers = $scope.shuffleArray(tempAnswers);
-      });//End callPoke
-    }//End question type
+      }); //End callPoke
+    } //End question type
 
     //Items Questions
     if($scope.category === 225){
@@ -90,60 +93,60 @@ angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope',
     }
 
     //Who's that Pokemon Questions
-    if($scope.category === 180){
+    if ($scope.category === 180) {
       $scope.categoryName = "Who's that Pokemon?";
       $scope.question = "";
       var tempAnswers = [];
-      PokeFactory.callPoke('getRandomPoke').then(function(results){
+      PokeFactory.callPoke('getRandomPoke').then(function(results) {
         tempAnswers.push(results.name);
 
         $scope.correctAnswer = results.name;
 
         $scope.sprite = results.sprites.front_default;
 
-        var num = Math.floor(Math.random() *811);
+        var num = Math.floor(Math.random() * 811);
         tempAnswers.push($scope.allPokemon[num].name);
-        var num = Math.floor(Math.random() *811);
+        var num = Math.floor(Math.random() * 811);
         tempAnswers.push($scope.allPokemon[num].name);
-        var num = Math.floor(Math.random() *811);
+        var num = Math.floor(Math.random() * 811);
         tempAnswers.push($scope.allPokemon[num].name);
 
         $scope.answers = $scope.shuffleArray(tempAnswers);
-      });//End callPoke
-    }//End question type
+      }); //End callPoke
+    } //End question type
 
     //Evolution Question
-    if($scope.category === 45){
+    if ($scope.category === 45) {
       $scope.categoryName = "Evolution";
       var tempAnswers = [];
       $scope.question = "";
       $scope.answers = [];
-      PokeFactory.callPoke('getEvolution').then(function(results){
+      PokeFactory.callPoke('getEvolution').then(function(results) {
         var name = results.chain.species.name;
         $scope.question = results.chain.species.name.charAt(0).toUpperCase() + results.chain.species.name.slice(1) + " evolves to _____";
         console.log(results);
 
-        if(results.chain.evolves_to.length === 0){
-          var num = Math.floor(Math.random() *811);
+        if (results.chain.evolves_to.length === 0) {
+          var num = Math.floor(Math.random() * 811);
           tempAnswers.push($scope.allPokemon[num].name);
           $scope.correctAnswer = "This pokemon does not evolve";
-        }else{
+        } else {
           console.log(results.chain.evolves_to[0].species.name);
           tempAnswers.push(results.chain.evolves_to[0].species.name);
           $scope.correctAnswer = results.chain.evolves_to[0].species.name;
         }
 
-        var num = Math.floor(Math.random() *811);
+        var num = Math.floor(Math.random() * 811);
         tempAnswers.push($scope.allPokemon[num].name);
-        var num = Math.floor(Math.random() *811);
+        var num = Math.floor(Math.random() * 811);
         tempAnswers.push($scope.allPokemon[num].name);
 
         $scope.answers = $scope.shuffleArray(tempAnswers);
         $scope.answers.push("This pokemon does not evolve");
-      });//End callPoke
-    }//End question type
+      }); //End callPoke
+    } //End question type
 
-    $scope.shuffleArray = function(tempAnswers){
+    $scope.shuffleArray = function(tempAnswers) {
       var array = tempAnswers;
       for (var i = array.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
@@ -159,6 +162,7 @@ angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope',
     //Badges Question
     var badgearr = ["Boulder Badge", "Cascade Badge", "Thunder Badge", "Rainbow Badge", "Soul Badge", "Marsh Badge", "Volcano Badge", "Earth Badge"];
     var leaderarr = ["Brock", "Misty", "Lt. Surge", "Erika", "Koga", "Sabrina", "Blaine", "Giovanni"];
+
 
     if($scope.category === 270){
         $scope.categoryName = "Badges";
@@ -186,6 +190,7 @@ angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope',
         }
 
         $scope.answers = $scope.shuffleArray(tempAnswers);
+
     }
 
 

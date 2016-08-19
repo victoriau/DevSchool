@@ -5,12 +5,14 @@ angular.module('pokExamApp')
     return {
       restrict: 'EA',
       templateUrl: 'app/directives/questionWheelDirective/questionWheelDirective.html',
-      scope: {correct: "="},
+      scope: {
+        correct: "="
+      },
 
       controller: ['$scope', '$uibModal', 'PokeFactory', 'MusicFactory', function($scope, $uibModal, PokeFactory, MusicFactory) {
         $scope.alive = [true, true, true, true, true, true];
         $scope.numLives = 0;
-        PokeFactory.callPoke('allPokemon').then(function(results){
+        PokeFactory.callPoke('allPokemon').then(function(results) {
           $scope.allPokemon = results.results;
           //console.log($scope.allPokemon);
         });
@@ -24,109 +26,109 @@ angular.module('pokExamApp')
         $scope.checkLives = function(correct){
           $scope.alive[$scope.numLives] = correct;
 
-          if(!correct){
+          if (!correct) {
             $scope.numLives += 1;
           }
         }
 
-          function getCategory(x) {
-              switch(x) {
-                  case 0:
-                      return 'Type Effectiveness';
-                  case 45:
-                      return 'Evolution';
-                  case 90:
-                      return 'Moves';
-                  case 135:
-                      return 'Pok\xE9mon Stats';
-                  case 180:
-                      return 'Who\'s That Pok\xE9mon?';
-                  case 225:
-                      return 'Items';
-                  case 270:
-                      return 'Badges';
-                  case 315:
-                      return 'Miscellaneous';
-                  default:
-                      return 'Unown Category';
-              }
+        function getCategory(x) {
+          switch (x) {
+            case 0:
+              return 'Type Effectiveness';
+            case 45:
+              return 'Evolution';
+            case 90:
+              return 'Moves';
+            case 135:
+              return 'Pok\xE9mon Stats';
+            case 180:
+              return 'Who\'s That Pok\xE9mon?';
+            case 225:
+              return 'Items';
+            case 270:
+              return 'Badges';
+            case 315:
+              return 'Miscellaneous';
+            default:
+              return 'Unown Category';
           }
+        }
 
         MusicFactory.playMainMusic();
 
         console.log("Connecting to the question wheel directive");
         $scope.chart = Highcharts.chart({
 
-          credits: {
-            enabled: false
-          },
+            credits: {
+              enabled: false
+            },
 
-          chart: {
+            chart: {
               renderTo: 'container',
-            polar: true
-          },
+              polar: true
+            },
 
-          legend: {
-            enabled: false
-          },
+            legend: {
+              enabled: false
+            },
 
-          title: {
-            text: 'Pok\xE9Trivia',
-            style: {
-              display: 'none'
-            }
-          },
-
-          pane: {
-            startAngle: 0,
-            endAngle: 360
-          },
-
-          xAxis: {
-            tickInterval: 45,
-            min: 0,
-            max: 360,
-            labels: {
-              formatter: function() {
-                return "";
+            title: {
+              text: 'Pok\xE9Trivia',
+              style: {
+                display: 'none'
               }
-            }
-          },
+            },
 
-          yAxis: {
-            min: 0,
-            max: 3,
-            labels: {
-              formatter: function() {
-                return "";
+            pane: {
+              startAngle: 0,
+              endAngle: 360
+            },
+
+            xAxis: {
+              tickInterval: 45,
+              min: 0,
+              max: 360,
+              labels: {
+                formatter: function() {
+                  return "";
+                }
               }
-            }
-          },
+            },
 
-          plotOptions: {
-            series: {
-              pointStart: 0,
-              pointInterval: 45,
-              stacking: 'normal',
-              point: {
-                events: {
-                  click: function() {
-                    MusicFactory.playBattleMusic();
-                    $scope.category = this.x;
-                    $scope.difficulty = this.series.name;
-                    $scope.clickedPiece = this;
-                    $scope.index = this.index;
-                    console.log('Category: ' + this.x + ' Difficulty: ' + this.series.name);
-                    var modalInstance = $uibModal.open({
-                      animation: true,
-                      templateUrl: 'app/modals/questionModal.html',
-                      controller: 'questionModalCtrl',
-                      size: 'lg',
-                      scope: $scope,
-                      resolve: {}
-                    });
+            yAxis: {
+              min: 0,
+              max: 3,
+              labels: {
+                formatter: function() {
+                  return "";
+                }
+              }
+            },
 
-                    var disablePiece = function(color) {
+            plotOptions: {
+              series: {
+                pointStart: 0,
+                pointInterval: 45,
+                stacking: 'normal',
+                point: {
+                  events: {
+                    click: function() {
+                      MusicFactory.playBattleMusic();
+                      $scope.category = this.x;
+                      $scope.difficulty = this.series.name;
+                      $scope.clickedPiece = this;
+                      $scope.index = this.index;
+                      console.log('Category: ' + this.x + ' Difficulty: ' + this.series.name);
+                      var modalInstance = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'app/modals/questionModal.html',
+                        controller: 'questionModalCtrl',
+                        size: 'lg',
+                        scope: $scope,
+                        resolve: {}
+                      });
+
+                      var disablePiece = function(color) {
                         var piece = $scope.clickedPiece.series.data[$scope.index];
                         console.log(piece);
                         piece.color = color;
@@ -135,154 +137,153 @@ angular.module('pokExamApp')
                         piece.floodColor = color;
                         console.log(piece.series.data);
                         $scope.chart.series[0].data[$scope.index].graphic.attr({
-                            fill:"red"
+                          fill: "red"
                         });
 
                         $scope.chart.redraw();
-
-                        //piece.series.setData(copy, true);
-                    }
-                    modalInstance.result.then(function (correct) {
-                      $scope.checkLives(correct);
+                      }
+                      modalInstance.result.then(function(correct) {
+                        $scope.checkLives(correct);
                         console.log("User answered correctly? " + correct);
                         if (!correct) {
-                            //send message to lives directive to decrement lives
+                          MusicFactory.playFailureSound();
+                          //send message to lives directive to decrement lives
                         } else {
-                            console.log($scope.category, $scope.difficulty);
-                            switch ($scope.difficulty) {
-                                case "Easy":
-                                    disablePiece(answered[2]);
-                                    break;
+                          MusicFactory.playSuccessSound();
+                          console.log($scope.category, $scope.difficulty);
+                          switch ($scope.difficulty) {
+                            case "Easy":
+                              disablePiece(answered[2]);
+                              break;
+                            default:
+                              switch ($scope.category) {
+                                case 0:
+                                case 45:
+                                case 270:
+                                case 315:
+                                  disablePiece(answered[0]);
+                                  break;
+                                case 90:
+                                case 135:
+                                case 180:
+                                case 225:
+                                  disablePiece(answered[1]);
+                                  break;
                                 default:
-                                    switch ($scope.category) {
-                                        case 0:
-                                        case 45:
-                                        case 270:
-                                        case 315:
-                                            disablePiece(answered[0]);
-                                            break;
-                                        case 90:
-                                        case 135:
-                                        case 180:
-                                        case 225:
-                                            disablePiece(answered[1]);
-                                            break;
-                                        default:
-                                            console.log("no");
-                                    }
-                            }
+                                  console.log("no");
+                              }
+                          }
                         }
-                    }, function () {
-                      console.log("Modal dismissed");
-                    });
+                      })
+
                   }
+              }
+          },
+                  borderWidth: 1,
+                  borderColor: '#FFFFFF',
+                },
+                column: {
+                  pointPadding: 0,
+                  groupPadding: 0,
                 }
               },
-              borderWidth: 1,
-              borderColor: '#FFFFFF',
-            },
-            column: {
-              pointPadding: 0,
-              groupPadding: 0,
-            }
-          },
-          tooltip: {
-            formatter: function() {
-              return 'Category: <b>' + getCategory(this.x) + '</b><br/>Difficulty: <b>' + this.series.name + '</b>';
-            }
-          },
-          series: [{
-            type: 'column',
-            name: 'Hard',
-            data: [{
-              y: 1,
-              color: unanswered[0]
-            }, {
-              y: 1,
-              color: unanswered[0]
-            }, {
-              y: 1,
-              color: unanswered[1]
-            }, {
-              y: 1,
-              color: unanswered[1]
-            }, {
-              y: 1,
-              color: unanswered[1]
-            }, {
-              y: 1,
-              color: unanswered[1]
-            }, {
-              y: 1,
-              color: unanswered[0]
-            }, {
-              y: 1,
-              color: unanswered[0]
-            }, ],
-            pointPlacement: 'between'
-          }, {
-            round: 1,
-            type: 'column',
-            name: 'Medium',
-            data: [{
-              y: 1,
-              color: unanswered[0]
-            }, {
-              y: 1,
-              color: unanswered[0]
-            }, {
-              y: 1,
-              color: unanswered[1]
-            }, {
-              y: 1,
-              color: unanswered[1]
-            }, {
-              y: 1,
-              color: unanswered[1]
-            }, {
-              y: 1,
-              color: unanswered[1]
-            }, {
-              y: 1,
-              color: unanswered[0]
-            }, {
-              y: 1,
-              color: unanswered[0]
-            }, ],
-            pointPlacement: 'between'
-          }, {
-            round: 0,
-            type: 'column',
-            name: 'Easy',
-            data: [{
-              y: 1,
-              color: unanswered[2]
-            }, {
-              y: 1,
-              color: unanswered[2]
-            }, {
-              y: 1,
-              color: unanswered[2]
-            }, {
-              y: 1,
-              color: unanswered[2]
-            }, {
-              y: 1,
-              color: unanswered[2]
-            }, {
-              y: 1,
-              color: unanswered[2]
-            }, {
-              y: 1,
-              color: unanswered[2]
-            }, {
-              y: 1,
-              color: unanswered[2]
-            }, ],
-            pointPlacement: 'between'
-          }]
-        });
-      }],
+              tooltip: {
+                formatter: function() {
+                  return 'Category: <b>' + getCategory(this.x) + '</b><br/>Difficulty: <b>' + this.series.name + '</b>';
+                }
+              },
+              series: [{
+                type: 'column',
+                name: 'Hard',
+                data: [{
+                  y: 1,
+                  color: unanswered[0]
+                }, {
+                  y: 1,
+                  color: unanswered[0]
+                }, {
+                  y: 1,
+                  color: unanswered[1]
+                }, {
+                  y: 1,
+                  color: unanswered[1]
+                }, {
+                  y: 1,
+                  color: unanswered[1]
+                }, {
+                  y: 1,
+                  color: unanswered[1]
+                }, {
+                  y: 1,
+                  color: unanswered[0]
+                }, {
+                  y: 1,
+                  color: unanswered[0]
+                }, ],
+                pointPlacement: 'between'
+              }, {
+                round: 1,
+                type: 'column',
+                name: 'Medium',
+                data: [{
+                  y: 1,
+                  color: unanswered[0]
+                }, {
+                  y: 1,
+                  color: unanswered[0]
+                }, {
+                  y: 1,
+                  color: unanswered[1]
+                }, {
+                  y: 1,
+                  color: unanswered[1]
+                }, {
+                  y: 1,
+                  color: unanswered[1]
+                }, {
+                  y: 1,
+                  color: unanswered[1]
+                }, {
+                  y: 1,
+                  color: unanswered[0]
+                }, {
+                  y: 1,
+                  color: unanswered[0]
+                }, ],
+                pointPlacement: 'between'
+              }, {
+                round: 0,
+                type: 'column',
+                name: 'Easy',
+                data: [{
+                  y: 1,
+                  color: unanswered[2]
+                }, {
+                  y: 1,
+                  color: unanswered[2]
+                }, {
+                  y: 1,
+                  color: unanswered[2]
+                }, {
+                  y: 1,
+                  color: unanswered[2]
+                }, {
+                  y: 1,
+                  color: unanswered[2]
+                }, {
+                  y: 1,
+                  color: unanswered[2]
+                }, {
+                  y: 1,
+                  color: unanswered[2]
+                }, {
+                  y: 1,
+                  color: unanswered[2]
+                }, ],
+                pointPlacement: 'between'
+              }]
+            });
+        }],
       link: function() {}
     }; //end of return statement
   }]); //end directive
