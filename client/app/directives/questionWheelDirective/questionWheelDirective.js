@@ -122,8 +122,10 @@ angular.module('pokExamApp')
                     modalInstance.result.then(function (correct) {
                         console.log("User answered correctly? " + correct);
                         if (!correct) {
+                            MusicFactory.playFailureSound();
                             //send message to lives directive to decrement lives
                         } else {
+                            MusicFactory.playSuccessSound();
                             switch ($scope.category, $scope.difficulty) {
                                 case 180, "Easy":
                                     disablePiece(answered[2]);
