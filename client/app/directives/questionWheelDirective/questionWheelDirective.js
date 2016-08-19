@@ -8,33 +8,33 @@ angular.module('pokExamApp')
       scope: {},
 
       controller: ['$scope', '$uibModal', 'PokeFactory', 'MusicFactory', function($scope, $uibModal, PokeFactory, MusicFactory) {
-        PokeFactory.callPoke('allPokemon').then(function(results){
+        PokeFactory.callPoke('allPokemon').then(function(results) {
           $scope.allPokemon = results.results;
           console.log($scope.allPokemon);
         });
 
-          function getCategory(x) {
-              switch(x) {
-                  case 0:
-                      return 'Type Effectiveness';
-                  case 45:
-                      return 'Evolution';
-                  case 90:
-                      return 'Moves';
-                  case 135:
-                      return 'Pok\xE9mon Stats';
-                  case 180:
-                      return 'Who\'s That Pok\xE9mon?';
-                  case 225:
-                      return 'Items';
-                  case 270:
-                      return 'Badges';
-                  case 315:
-                      return 'Miscellaneous';
-                  default:
-                      return 'Unown Category';
-              }
+        function getCategory(x) {
+          switch (x) {
+            case 0:
+              return 'Type Effectiveness';
+            case 45:
+              return 'Evolution';
+            case 90:
+              return 'Moves';
+            case 135:
+              return 'Pok\xE9mon Stats';
+            case 180:
+              return 'Who\'s That Pok\xE9mon?';
+            case 225:
+              return 'Items';
+            case 270:
+              return 'Badges';
+            case 315:
+              return 'Miscellaneous';
+            default:
+              return 'Unown Category';
           }
+        }
 
         MusicFactory.playMainMusic();
 
@@ -110,37 +110,37 @@ angular.module('pokExamApp')
                     });
 
                     var disablePiece = function(color) {
-                        var piece = $scope.clickedPiece.series.data[$scope.index];
-                        console.log(piece);
-                        piece.color = color;
-                        piece.events.click = function() {
-                            console.log("Test");
-                            return false;
-                        };
-                        $scope.clickedPiece.series.setData($scope.clickedPiece.series.data,true); //SET DATA TO ITSELF TO RERENDER
+                      var piece = $scope.clickedPiece.series.data[$scope.index];
+                      console.log(piece);
+                      piece.color = color;
+                      piece.events.click = function() {
+                        console.log("Test");
+                        return false;
+                      };
+                      $scope.clickedPiece.series.setData($scope.clickedPiece.series.data, true); //SET DATA TO ITSELF TO RERENDER
                     }
-                    modalInstance.result.then(function (correct) {
-                        console.log("User answered correctly? " + correct);
-                        if (!correct) {
-                            MusicFactory.playFailureSound();
-                            //send message to lives directive to decrement lives
-                        } else {
-                            MusicFactory.playSuccessSound();
-                            switch ($scope.category, $scope.difficulty) {
-                                case 180, "Easy":
-                                    disablePiece(answered[2]);
-                                    break;
-                                case 180, "Medium":
-                                    disablePiece(answered[1]);
-                                    break;
-                                case 180, "Hard":
-                                    disablePiece(answered[1]);
-                                    break;
-                                default:
-                                    console.log($scope.category, $scope.difficulty);
-                            }
+                    modalInstance.result.then(function(correct) {
+                      console.log("User answered correctly? " + correct);
+                      if (!correct) {
+                        MusicFactory.playFailureSound();
+                        //send message to lives directive to decrement lives
+                      } else {
+                        MusicFactory.playSuccessSound();
+                        switch ($scope.category, $scope.difficulty) {
+                          case 180, "Easy":
+                            disablePiece(answered[2]);
+                            break;
+                          case 180, "Medium":
+                            disablePiece(answered[1]);
+                            break;
+                          case 180, "Hard":
+                            disablePiece(answered[1]);
+                            break;
+                          default:
+                            console.log($scope.category, $scope.difficulty);
                         }
-                    }, function () {
+                      }
+                    }, function() {
                       console.log("Modal dismissed");
                     });
                   }
