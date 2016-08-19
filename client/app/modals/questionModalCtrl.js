@@ -22,6 +22,22 @@ angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope',
     $scope.question = "";
     $scope.answers = [];
 
+    //Stats Questons
+    if($scope.category === 135){
+      $scope.categoryName = "Stats";
+      $scope.question = "Stats is a work in progress. Select true.";
+      $scope.answers = ["True", "False", "Nope", "None of the Above"];
+      $scope.correctAnswer = "True";
+    }
+
+    //Misc. Questons
+    if($scope.category === 315){
+      $scope.categoryName = "Miscellaneous";
+      $scope.question = "Miscellaneous is a work in progress. Select true.";
+      $scope.answers = ["True", "False", "Nope", "None of the Above"];
+      $scope.correctAnswer = "True";
+    }
+
     //Moves Questions
     if ($scope.category === 90) {
       $scope.categoryName = "Moves"
@@ -49,6 +65,32 @@ angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope',
         $scope.answers = $scope.shuffleArray(tempAnswers);
       }); //End callPoke
     } //End question type
+
+    //Items Questions
+    if($scope.category === 225){
+      $scope.categoryName = "Which item is this?";
+      $scope.question = "";
+      var tempAnswers = [];
+      PokeFactory.callPoke('getItem').then(function(results){
+        $scope.sprite = results.sprites.default;
+        $scope.correctAnswer = results.name;
+        tempAnswers.push(results.name);
+        while (tempAnswers.length < 4) {
+            var otherBadge = Math.floor(Math.random() * 745);
+            var dup = false;
+            for(var i = 0; i< tempAnswers.length; i++){
+                if(tempAnswers[i] === $scope.allItems[otherBadge].name){
+                    dup = true;
+                }
+            }
+            if (!dup) {
+                tempAnswers.push($scope.allItems[otherBadge].name);
+            }
+        }
+        $scope.answers = $scope.shuffleArray(tempAnswers);
+      });
+
+    }
 
     //Who's that Pokemon Questions
     if ($scope.category === 180) {
@@ -104,7 +146,100 @@ angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope',
       }); //End callPoke
     } //End question type
 
-    $scope.shuffleArray = function(tempAnswers) {
+    //type Effectiveness category
+    if($scope.category === 0){
+      $scope.question = "";
+      var tempAnswers = [];
+      $scope.categoryName = "Type Effectiveness"
+      PokeFactory.callPoke('getEffectiveness').then(function(results){
+      $scope.answers = [];
+      //var name = results.chain.species.name;
+      var damageLevelCase = Math.floor(Math.random() *3)+1;
+      var damageLevel;
+
+      switch(damageLevelCase) {
+          case 1:
+              var damageLevel = "half_damage_to";
+
+
+              $scope.question = results.name.charAt(0).toUpperCase() + results.name.slice(1) + " types inflict half damage on _____ types";
+              var answersArray = results.damage_relations.half_damage_to;
+              console.log("length" + answersArray.length);
+              if (answersArray.length == 0) {
+                $scope.correctAnswer = "none";
+              } else {
+                $scope.correctAnswer = results.damage_relations.half_damage_to[0].name;
+              }
+              console.log(damageLevel);
+              console.log("1");
+              break;
+          case 2:
+              console.log("2");
+              var damageLevel = "double_damage_to";
+              //$scope.question = results.name + " types inflict double damage on _____ types";
+              $scope.question = results.name.charAt(0).toUpperCase() + results.name.slice(1) + " types inflict double damage on _____ types";
+
+              var answersArray = results.damage_relations.double_damage_to;
+                            console.log("length" + answersArray.length);
+              if (answersArray.length == 0) {
+                $scope.correctAnswer = "none";
+              } else {
+                $scope.correctAnswer = results.damage_relations.double_damage_to[0].name;
+              }
+              console.log(damageLevel);
+              break;
+          case 3:
+              console.log("3");
+              var damageLevel = "no_damage_to";
+              $scope.question = results.name.charAt(0).toUpperCase() + results.name.slice(1) + " types inflict no damage on _____ types";
+
+              var answersArray = results.damage_relations.no_damage_to;
+                            console.log("length" + answersArray.length);
+              if (answersArray.length == 0) {
+                $scope.correctAnswer = "none";
+              } else {
+                $scope.correctAnswer = results.damage_relations.no_damage_to[0].name;
+              }
+              console.log(damageLevel);
+              break;
+
+          default:
+              console.log("default");
+      }
+
+      //$scope.question = results.name + " evolves to _____";
+      console.log(results);
+
+      //  $scope.correctAnswer = results.name;
+
+        tempAnswers.push($scope.correctAnswer);
+                          console.log("correct answer" + tempAnswers[0]);
+
+        while(tempAnswers.length < 4){
+                 var num = Math.floor(Math.random() * 18);
+                 var good = true;
+
+                 for(var i = 0; i < tempAnswers.length; i++){
+                   if(tempAnswers[i] === $scope.allTypes[num].name){
+                     good = false;
+                   }
+                 }
+                 console.log(answersArray);
+                 for(var j = 0; j < answersArray.length; j++){
+                   if($scope.allTypes[num].name === answersArray[j].name){
+                     good = false;
+                   }
+                 }
+                 if(good){
+                   tempAnswers.push($scope.allTypes[num].name);
+                 }
+               }
+        $scope.answers = $scope.shuffleArray(tempAnswers);
+
+      });//End callPoke
+    }//End question type
+
+    $scope.shuffleArray = function(tempAnswers){
       var array = tempAnswers;
       for (var i = array.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
@@ -121,31 +256,34 @@ angular.module('pokExamApp').controller('questionModalCtrl', ['$http', '$scope',
     var badgearr = ["Boulder Badge", "Cascade Badge", "Thunder Badge", "Rainbow Badge", "Soul Badge", "Marsh Badge", "Volcano Badge", "Earth Badge"];
     var leaderarr = ["Brock", "Misty", "Lt. Surge", "Erika", "Koga", "Sabrina", "Blaine", "Giovanni"];
 
-    if ($scope.category === 270) {
-      var tempAnswers = [];
-      $scope.question = "";
-      $scope.answers = [];
 
-      var gym = Math.floor(Math.random() * 8);
+    if($scope.category === 270){
+        $scope.categoryName = "Badges";
+        var tempAnswers = [];
+        $scope.question = "";
+        $scope.answers = [];
 
-      $scope.question = leaderarr[gym] + " awards which badge?";
+        var gym = Math.floor(Math.random() * 8);
 
-      tempAnswers.push(badgearr[gym]);
-      $scope.correctAnswer = badgearr[gym];
-      while (tempAnswers.length < 4) {
-        var otherBadge = Math.floor(Math.random() * 8);
-        var dup = false;
-        for (var i = 0; i < tempAnswers.length; i++) {
-          if (tempAnswers[i] === badgearr[otherBadge]) {
-            dup = true;
-          }
+        $scope.question = leaderarr[gym] + " awards which badge?";
+
+        tempAnswers.push(badgearr[gym]);
+        $scope.correctAnswer = badgearr[gym];
+        while (tempAnswers.length < 4) {
+            var otherBadge = Math.floor(Math.random() * 8);
+            var dup = false;
+            for(var i = 0; i< tempAnswers.length; i++){
+                if(tempAnswers[i] === badgearr[otherBadge]){
+                    dup = true;
+                }
+            }
+            if (otherBadge != gym && !dup) {
+                tempAnswers.push(badgearr[otherBadge]);
+            }
         }
-        if (otherBadge != gym && !dup) {
-          tempAnswers.push(badgearr[otherBadge]);
-        }
-      }
 
-      $scope.answers = $scope.shuffleArray(tempAnswers);
+        $scope.answers = $scope.shuffleArray(tempAnswers);
+
     }
 
 

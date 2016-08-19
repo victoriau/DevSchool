@@ -29,9 +29,23 @@ angular.module('pokExamApp').factory('PokeFactory', function($http, $q){
             case 'getOffset':
                 urlAddition = 'pokemon/?offset=' + _offset;
                 break;
+            case 'getEffectiveness':
+                var num = Math.floor(Math.random() * 18)+1;
+                urlAddition = 'type/' + num + '/';
+                break;
+            case 'allTypes':
+                urlAddition = 'type/';
+                break;
             case 'getMove':
                 var num = Math.floor(Math.random() * 500) + 1;
                 urlAddition = 'move/' + num + '/';
+                break;
+            case 'allItems':
+                urlAddition = 'item/?limit=746';
+                break;
+            case 'getItem':
+                var num = Math.floor(Math.random() * 745) + 1;
+                urlAddition = 'item/' + num + '/';
                 break;
             default:
                 return 'error';

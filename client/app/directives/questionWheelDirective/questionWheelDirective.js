@@ -14,10 +14,22 @@ angular.module('pokExamApp')
         $scope.numLives = 0;
         PokeFactory.callPoke('allPokemon').then(function(results) {
           $scope.allPokemon = results.results;
-          console.log($scope.allPokemon);
+          //console.log($scope.allPokemon);
         });
 
-        $scope.checkLives = function(correct) {
+        PokeFactory.callPoke('allTypes').then(function(results){
+          $scope.allTypes = results.results;
+          console.log("types");
+          console.log($scope.allTypes);
+        });
+
+        PokeFactory.callPoke('allItems').then(function(results){
+          $scope.allItems= results.results;
+          console.log($scope.allItems);
+        });
+
+
+        $scope.checkLives = function(correct){
           $scope.alive[$scope.numLives] = correct;
 
           if (!correct) {
@@ -131,6 +143,7 @@ angular.module('pokExamApp')
                         $scope.chart.series[0].data[$scope.index].graphic.attr({
                           fill: "red"
                         });
+
                         $scope.chart.redraw();
 
                         var successes = [];
