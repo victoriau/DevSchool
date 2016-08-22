@@ -3,7 +3,7 @@
 //MAUI API factory used for managing API calls
 angular.module('pokExamApp').factory('PokeFactory', function($http, $q){
     var service = {};
-    var baseUrl = 'http://pokeapi.com/api/v2/';
+    var baseUrl = 'http://pokeapi.co/api/v2/';
 
     var _offset = '';
     var _finalUrl;
